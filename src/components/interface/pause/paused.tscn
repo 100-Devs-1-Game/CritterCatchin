@@ -1,0 +1,138 @@
+[gd_scene load_steps=9 format=3 uid="uid://dhomc0baadras"]
+
+[ext_resource type="Script" uid="uid://bjobet7d102wt" path="res://components/interface/pause/paused.gd" id="1_ql2ti"]
+[ext_resource type="FontFile" uid="uid://sja5jpfqrgol" path="res://fonts/PixelGame-R9AZe.otf" id="1_r5k1g"]
+
+[sub_resource type="Gradient" id="Gradient_ql2ti"]
+offsets = PackedFloat32Array(0, 0.184971, 0.800578, 1)
+colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_pgr4k"]
+gradient = SubResource("Gradient_ql2ti")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pgr4k"]
+bg_color = Color(0.905882, 0.643137, 0.396078, 1)
+border_width_left = 12
+border_width_top = 12
+border_width_right = 12
+border_width_bottom = 12
+border_color = Color(0.815686, 0.545098, 0.282353, 1)
+corner_radius_top_left = 79
+corner_radius_top_right = 79
+corner_radius_bottom_right = 79
+corner_radius_bottom_left = 79
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ql2ti"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rk725"]
+bg_color = Color(0.723172, 0.473737, 0.224453, 1)
+corner_radius_top_left = 26
+corner_radius_top_right = 26
+corner_radius_bottom_right = 26
+corner_radius_bottom_left = 26
+expand_margin_left = 20.0
+expand_margin_right = 20.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q2oj0"]
+bg_color = Color(0.968661, 0.827196, 0.703682, 1)
+corner_radius_top_left = 26
+corner_radius_top_right = 26
+corner_radius_bottom_right = 26
+corner_radius_bottom_left = 26
+expand_margin_left = 20.0
+expand_margin_right = 20.0
+
+[node name="Paused" type="Control" node_paths=PackedStringArray("pause", "confirm")]
+process_mode = 3
+z_index = 6
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ql2ti")
+pause = NodePath("PausePanel")
+confirm = NodePath("")
+
+[node name="ColorRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture1D_pgr4k")
+
+[node name="PausePanel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -183.0
+offset_top = -236.0
+offset_right = 183.0
+offset_bottom = 236.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_pgr4k")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PausePanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 32.0
+offset_top = 96.0
+offset_right = -32.0
+offset_bottom = -96.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Resume" type="Button" parent="PausePanel/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("1_r5k1g")
+theme_override_font_sizes/font_size = 68
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ql2ti")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_rk725")
+theme_override_styles/hover = SubResource("StyleBoxFlat_rk725")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_q2oj0")
+theme_override_styles/normal = SubResource("StyleBoxFlat_q2oj0")
+text = "Continue"
+autowrap_mode = 3
+
+[node name="Settings" type="Button" parent="PausePanel/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("1_r5k1g")
+theme_override_font_sizes/font_size = 68
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ql2ti")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_rk725")
+theme_override_styles/hover = SubResource("StyleBoxFlat_rk725")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_q2oj0")
+theme_override_styles/normal = SubResource("StyleBoxFlat_q2oj0")
+text = "Settings"
+autowrap_mode = 3
+
+[node name="Exit" type="Button" parent="PausePanel/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("1_r5k1g")
+theme_override_font_sizes/font_size = 56
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ql2ti")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_rk725")
+theme_override_styles/hover = SubResource("StyleBoxFlat_rk725")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_q2oj0")
+theme_override_styles/normal = SubResource("StyleBoxFlat_q2oj0")
+text = "Quit"
+autowrap_mode = 3
+
+[connection signal="pressed" from="PausePanel/VBoxContainer/Resume" to="." method="_resume"]
+[connection signal="pressed" from="PausePanel/VBoxContainer/Settings" to="." method="_settings"]
+[connection signal="pressed" from="PausePanel/VBoxContainer/Exit" to="." method="_exit"]

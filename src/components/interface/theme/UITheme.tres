@@ -1,0 +1,97 @@
+[gd_resource type="Theme" load_steps=14 format=3 uid="uid://c23fe0nle1t5f"]
+
+[ext_resource type="FontFile" uid="uid://sja5jpfqrgol" path="res://fonts/PixelGame-R9AZe.otf" id="1_tycv2"]
+
+[sub_resource type="Gradient" id="Gradient_tycv2"]
+offsets = PackedFloat32Array(0.718543, 0.721854, 0.870861, 0.933775)
+colors = PackedColorArray(1, 0.447059, 0.2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_o7lot"]
+gradient = SubResource("Gradient_tycv2")
+width = 32
+height = 32
+fill = 2
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_y3ar8"]
+offsets = PackedFloat32Array(0.907285, 0.933775)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_tycv2"]
+gradient = SubResource("Gradient_y3ar8")
+width = 32
+height = 32
+fill = 2
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y3ar8"]
+
+[sub_resource type="Gradient" id="Gradient_myjhl"]
+colors = PackedColorArray(0.552956, 0.552956, 0.552956, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ah5j4"]
+gradient = SubResource("Gradient_myjhl")
+width = 9
+height = 34
+fill_from = Vector2(1, 0.752137)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rdrrm"]
+bg_color = Color(0.925965, 0.600275, 0.173951, 1)
+border_width_bottom = 15
+border_color = Color(0.447034, 0.273921, 0.0287295, 1)
+border_blend = true
+corner_radius_top_left = 7
+corner_radius_bottom_left = 7
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1gl4y"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 15
+border_width_top = 15
+border_width_right = 15
+border_width_bottom = 15
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 7
+corner_radius_top_right = 7
+corner_radius_bottom_right = 7
+corner_radius_bottom_left = 7
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o7lot"]
+bg_color = Color(0, 0, 0, 0.545098)
+corner_radius_top_left = 9
+corner_radius_top_right = 9
+corner_radius_bottom_right = 9
+corner_radius_bottom_left = 9
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y3ar8"]
+bg_color = Color(0.247668, 0.227588, 0.197435, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_tycv2"]
+grow_begin = 0.0
+grow_end = 0.0
+
+[resource]
+CheckBox/icons/checked = SubResource("GradientTexture2D_o7lot")
+CheckBox/icons/unchecked = SubResource("GradientTexture2D_tycv2")
+CheckBox/styles/focus = SubResource("StyleBoxEmpty_y3ar8")
+HSlider/icons/grabber = SubResource("GradientTexture2D_ah5j4")
+HSlider/icons/grabber_highlight = SubResource("GradientTexture2D_ah5j4")
+HSlider/styles/grabber_area = SubResource("StyleBoxFlat_rdrrm")
+HSlider/styles/grabber_area_highlight = SubResource("StyleBoxFlat_rdrrm")
+HSlider/styles/slider = SubResource("StyleBoxFlat_1gl4y")
+OptionButton/colors/font_color = Color(1, 1, 1, 1)
+OptionButton/constants/outline_size = 6
+OptionButton/font_sizes/font_size = 39
+OptionButton/fonts/font = ExtResource("1_tycv2")
+OptionButton/styles/normal = SubResource("StyleBoxFlat_o7lot")
+SpinBox/styles/down_background = SubResource("StyleBoxFlat_y3ar8")
+SpinBox/styles/down_background_hovered = SubResource("StyleBoxFlat_y3ar8")
+SpinBox/styles/down_background_pressed = SubResource("StyleBoxFlat_y3ar8")
+SpinBox/styles/up_background = SubResource("StyleBoxFlat_y3ar8")
+SpinBox/styles/up_background_hovered = SubResource("StyleBoxFlat_y3ar8")
+SpinBox/styles/up_background_pressed = SubResource("StyleBoxFlat_y3ar8")
+SpinBox/styles/up_down_buttons_separator = SubResource("StyleBoxLine_tycv2")

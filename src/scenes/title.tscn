@@ -1,0 +1,180 @@
+[gd_scene load_steps=8 format=3 uid="uid://63ryhkwq34l2"]
+
+[ext_resource type="Script" uid="uid://b7rqbknafl3kt" path="res://scenes/title.gd" id="1_4ignj"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pvspv"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4ignj"]
+bg_color = Color(0.145218, 0.0425137, 6.01634e-09, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(0.100706, 0.0233417, 3.00817e-09, 1)
+shadow_size = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wosw1"]
+bg_color = Color(0.966254, 0.442388, 1.15514e-06, 1)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.411765, 0.172549, 0, 1)
+shadow_size = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p6dhs"]
+bg_color = Color(0.997218, 0.457468, 5.77569e-07, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(0.411765, 0.172549, 0, 1)
+shadow_size = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pyl7j"]
+bg_color = Color(0.772115, 0.347835, 0, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(0.411765, 0.172549, 0, 1)
+shadow_size = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b3w7a"]
+bg_color = Color(0.571147, 0.392055, 0.211499, 1)
+border_width_left = 7
+border_width_top = 7
+border_width_right = 7
+border_width_bottom = 7
+border_color = Color(0.44278, 0.297608, 0.15166, 1)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+
+[node name="Title" type="Node2D" node_paths=PackedStringArray("play_button", "settings_button", "leaderboard_button", "quit_button")]
+script = ExtResource("1_4ignj")
+play_button = NodePath("CanvasLayer/VBoxContainer/play")
+settings_button = NodePath("CanvasLayer/VBoxContainer/settings")
+leaderboard_button = NodePath("CanvasLayer/VBoxContainer/leaderboard")
+quit_button = NodePath("CanvasLayer/VBoxContainer/quit")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0.45098, 0.756863, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -160.0
+offset_top = -114.0
+offset_right = 160.0
+offset_bottom = 178.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="play" type="Button" parent="CanvasLayer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 61.185)
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0.411765, 0.172549, 0, 1)
+theme_override_colors/font_color = Color(0.772549, 0.34902, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 34
+theme_override_styles/focus = SubResource("StyleBoxEmpty_pvspv")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_4ignj")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_wosw1")
+theme_override_styles/hover = SubResource("StyleBoxFlat_p6dhs")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_wosw1")
+theme_override_styles/normal = SubResource("StyleBoxFlat_pyl7j")
+text = "PLAY"
+
+[node name="settings" type="Button" parent="CanvasLayer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 61.185)
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0.411765, 0.172549, 0, 1)
+theme_override_colors/font_color = Color(0.772549, 0.34902, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 34
+theme_override_styles/focus = SubResource("StyleBoxEmpty_pvspv")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_4ignj")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_wosw1")
+theme_override_styles/hover = SubResource("StyleBoxFlat_p6dhs")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_wosw1")
+theme_override_styles/normal = SubResource("StyleBoxFlat_pyl7j")
+text = "SETTINGS"
+
+[node name="leaderboard" type="Button" parent="CanvasLayer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 61.185)
+layout_mode = 2
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0.411765, 0.172549, 0, 1)
+theme_override_colors/font_color = Color(0.772549, 0.34902, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 34
+theme_override_styles/focus = SubResource("StyleBoxEmpty_pvspv")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_4ignj")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_wosw1")
+theme_override_styles/hover = SubResource("StyleBoxFlat_p6dhs")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_wosw1")
+theme_override_styles/normal = SubResource("StyleBoxFlat_pyl7j")
+disabled = true
+text = "LEADERBOARD"
+
+[node name="quit" type="Button" parent="CanvasLayer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 61.185)
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0.411765, 0.172549, 0, 1)
+theme_override_colors/font_color = Color(0.772549, 0.34902, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 34
+theme_override_styles/focus = SubResource("StyleBoxEmpty_pvspv")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_4ignj")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_wosw1")
+theme_override_styles/hover = SubResource("StyleBoxFlat_p6dhs")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_wosw1")
+theme_override_styles/normal = SubResource("StyleBoxFlat_pyl7j")
+text = "QUIT"
+
+[node name="Panel" type="Panel" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -269.0
+offset_top = -278.0
+offset_right = 269.0
+offset_bottom = -154.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_b3w7a")
+
+[node name="Title" type="Label" parent="CanvasLayer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -15.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 0.458824, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0.411281, 0.172096, 0, 1)
+theme_override_constants/shadow_offset_x = 6
+theme_override_constants/shadow_offset_y = 11
+theme_override_constants/outline_size = 21
+theme_override_constants/shadow_outline_size = 29
+theme_override_font_sizes/font_size = 51
+text = "Critter Catchin'"
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -1,0 +1,64 @@
+[gd_scene load_steps=2 format=3 uid="uid://cojqyw4fktvuf"]
+
+[ext_resource type="Script" uid="uid://b6lher7lbhkf6" path="res://components/interface/game over/game_over.gd" id="1_2rmps"]
+
+[node name="GameOver" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2rmps")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="BG" type="ColorRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.243137)
+
+[node name="Over" type="Label" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -114.5
+offset_top = -268.0
+offset_right = 114.5
+offset_bottom = -213.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(114, 28)
+theme_override_colors/font_color = Color(0.745098, 0.741176, 0, 1)
+theme_override_constants/outline_size = -81
+theme_override_font_sizes/font_size = 40
+text = "Game Over!"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -98.0
+offset_top = -89.0
+offset_right = 98.0
+offset_bottom = 89.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="replay" type="Button" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Play again"
+
+[node name="exit" type="Button" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Exit to title"

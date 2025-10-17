@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://nkyoqgtdcy0q"]
+
+[ext_resource type="Script" uid="uid://bfos16d7i1nxr" path="res://components/catch handler/catch_handler.gd" id="1_u6qfu"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hycve"]
+radius = 12.0416
+
+[node name="CatchArea" type="Area2D"]
+z_index = 4
+script = ExtResource("1_u6qfu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_hycve")
+debug_color = Color(0, 0.6, 0.701961, 0)
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]

@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://dogxgssw1o4yj"]
+
+[ext_resource type="Script" uid="uid://cuxnpnadwsr0w" path="res://components/bounding box/bounds.gd" id="1_wijlf"]
+
+[node name="Bounds" type="Node2D" groups=["bounds"]]
+z_index = 100
+script = ExtResource("1_wijlf")

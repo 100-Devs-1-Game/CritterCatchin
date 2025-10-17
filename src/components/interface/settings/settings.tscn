@@ -1,0 +1,465 @@
+[gd_scene load_steps=9 format=3 uid="uid://dw0ot6y0cgfwp"]
+
+[ext_resource type="Script" uid="uid://myirocx08un3" path="res://components/interface/settings/settings.gd" id="1_myjhl"]
+[ext_resource type="FontFile" uid="uid://sja5jpfqrgol" path="res://fonts/PixelGame-R9AZe.otf" id="2_ah5j4"]
+[ext_resource type="Theme" uid="uid://c23fe0nle1t5f" path="res://components/interface/theme/UITheme.tres" id="2_rdrrm"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fmmx5"]
+bg_color = Color(1, 0.862745, 0.670588, 1)
+corner_radius_top_right = 51
+corner_radius_bottom_right = 51
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1lmue"]
+bg_color = Color(1, 0.917349, 0.803618, 1)
+border_width_right = 14
+border_color = Color(1, 0.858824, 0.658824, 0)
+border_blend = true
+corner_radius_top_right = 51
+corner_radius_bottom_right = 51
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_myjhl"]
+bg_color = Color(1, 0.831373, 0.803922, 1)
+border_width_left = 23
+border_color = Color(1, 0.862745, 0.670588, 1)
+border_blend = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ah5j4"]
+bg_color = Color(1, 0.831373, 0.72549, 1)
+border_width_left = 23
+border_color = Color(1, 0.862745, 0.670588, 1)
+border_blend = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3jfna"]
+bg_color = Color(1, 0.917647, 0.803922, 1)
+border_width_left = 23
+border_color = Color(1, 0.862745, 0.670588, 1)
+border_blend = true
+
+[node name="Settings" type="Control" node_paths=PackedStringArray("tab_buttons", "exit_button", "setting_tabs")]
+process_mode = 3
+z_index = 7
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_myjhl")
+tab_buttons = [NodePath("CanvasLayer/SettingsPanel/VBoxContainer/General"), NodePath("CanvasLayer/SettingsPanel/VBoxContainer/Video"), NodePath("CanvasLayer/SettingsPanel/VBoxContainer/Sound"), NodePath("CanvasLayer/SettingsPanel/VBoxContainer/Credits")]
+exit_button = NodePath("CanvasLayer/SettingsPanel/VBoxContainer/Back")
+setting_tabs = [NodePath("CanvasLayer/SettingsPanel/General"), NodePath("CanvasLayer/SettingsPanel/Video"), NodePath("CanvasLayer/SettingsPanel/Sound"), NodePath("CanvasLayer/SettingsPanel/Credits")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="BG" type="ColorRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.192157)
+
+[node name="SettingsPanel" type="Panel" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -354.0
+offset_top = -238.0
+offset_right = 354.0
+offset_bottom = 238.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_fmmx5")
+
+[node name="SettingsPanel2" type="Panel" parent="CanvasLayer/SettingsPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -139.0
+offset_top = -238.0
+offset_right = 354.0
+offset_bottom = 238.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_1lmue")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/SettingsPanel"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 215.0
+grow_vertical = 2
+theme_override_constants/separation = 5
+alignment = 1
+
+[node name="General" type="Button" parent="CanvasLayer/SettingsPanel/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+theme_override_styles/focus = SubResource("StyleBoxFlat_myjhl")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_myjhl")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ah5j4")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_3jfna")
+theme_override_styles/normal = SubResource("StyleBoxFlat_3jfna")
+text = "GENERAL"
+
+[node name="Video" type="Button" parent="CanvasLayer/SettingsPanel/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+theme_override_styles/focus = SubResource("StyleBoxFlat_myjhl")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_myjhl")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ah5j4")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_3jfna")
+theme_override_styles/normal = SubResource("StyleBoxFlat_3jfna")
+text = "VIDEO"
+
+[node name="Sound" type="Button" parent="CanvasLayer/SettingsPanel/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+theme_override_styles/focus = SubResource("StyleBoxFlat_myjhl")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_myjhl")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ah5j4")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_3jfna")
+theme_override_styles/normal = SubResource("StyleBoxFlat_3jfna")
+text = "SOUND"
+
+[node name="Credits" type="Button" parent="CanvasLayer/SettingsPanel/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+theme_override_styles/focus = SubResource("StyleBoxFlat_myjhl")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_myjhl")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ah5j4")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_3jfna")
+theme_override_styles/normal = SubResource("StyleBoxFlat_3jfna")
+text = "CREDITS"
+
+[node name="Back" type="Button" parent="CanvasLayer/SettingsPanel/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+theme_override_styles/focus = SubResource("StyleBoxFlat_myjhl")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_myjhl")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ah5j4")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_3jfna")
+theme_override_styles/normal = SubResource("StyleBoxFlat_3jfna")
+text = "EXIT"
+
+[node name="General" type="Control" parent="CanvasLayer/SettingsPanel"]
+visible = false
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -493.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/SettingsPanel/General"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 0.290196)
+theme_override_font_sizes/font_size = 41
+text = "General"
+
+[node name="Video" type="Control" parent="CanvasLayer/SettingsPanel"]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -493.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/SettingsPanel/Video"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 0.290196)
+theme_override_font_sizes/font_size = 41
+text = "Video"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/SettingsPanel/Video"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 65.0
+offset_top = 63.0
+offset_right = -65.0
+offset_bottom = -63.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 9
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/SettingsPanel/Video/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Vsync" type="CheckBox" parent="CanvasLayer/SettingsPanel/Video/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_rdrrm")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("2_ah5j4")
+theme_override_font_sizes/font_size = 41
+text = "V-Sync Enabled"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/SettingsPanel/Video/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 26
+alignment = 1
+
+[node name="Framelbl" type="Label" parent="CanvasLayer/SettingsPanel/Video/VBoxContainer/HBoxContainer2"]
+texture_filter = 1
+layout_mode = 2
+theme_override_constants/outline_size = 7
+theme_override_fonts/font = ExtResource("2_ah5j4")
+theme_override_font_sizes/font_size = 45
+text = "Framerate"
+horizontal_alignment = 1
+
+[node name="Frame" type="SpinBox" parent="CanvasLayer/SettingsPanel/Video/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme = ExtResource("2_rdrrm")
+step = 10.0
+value = 120.0
+allow_greater = true
+suffix = "FPS"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="CanvasLayer/SettingsPanel/Video/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 26
+alignment = 1
+
+[node name="Window" type="Label" parent="CanvasLayer/SettingsPanel/Video/VBoxContainer/HBoxContainer3"]
+texture_filter = 1
+layout_mode = 2
+theme_override_constants/outline_size = 7
+theme_override_fonts/font = ExtResource("2_ah5j4")
+theme_override_font_sizes/font_size = 45
+text = "Screen"
+horizontal_alignment = 1
+
+[node name="Frame" type="OptionButton" parent="CanvasLayer/SettingsPanel/Video/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+theme = ExtResource("2_rdrrm")
+alignment = 1
+selected = 0
+item_count = 3
+popup/item_0/text = "Windowed"
+popup/item_0/id = 0
+popup/item_1/text = "Fullscreen"
+popup/item_1/id = 1
+popup/item_2/text = "Borderless"
+popup/item_2/id = 2
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="CanvasLayer/SettingsPanel/Video/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 26
+alignment = 1
+
+[node name="Window" type="Label" parent="CanvasLayer/SettingsPanel/Video/VBoxContainer/HBoxContainer4"]
+texture_filter = 1
+layout_mode = 2
+theme_override_constants/outline_size = 7
+theme_override_fonts/font = ExtResource("2_ah5j4")
+theme_override_font_sizes/font_size = 45
+text = "REsolution"
+horizontal_alignment = 1
+
+[node name="Frame" type="OptionButton" parent="CanvasLayer/SettingsPanel/Video/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+theme = ExtResource("2_rdrrm")
+alignment = 1
+selected = 0
+item_count = 2
+popup/item_0/text = "1920x1080"
+popup/item_0/id = 0
+popup/item_1/text = "1152x648"
+popup/item_1/id = 1
+
+[node name="Sound" type="Control" parent="CanvasLayer/SettingsPanel"]
+visible = false
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -493.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/SettingsPanel/Sound"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 0.290196)
+theme_override_font_sizes/font_size = 41
+text = "Sound"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/SettingsPanel/Sound"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 110.0
+offset_top = 35.0
+offset_right = -110.0
+offset_bottom = -35.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 14
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/SettingsPanel/Sound/VBoxContainer"]
+layout_mode = 2
+
+[node name="Masterlbl" type="Label" parent="CanvasLayer/SettingsPanel/Sound/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 7
+theme_override_fonts/font = ExtResource("2_ah5j4")
+theme_override_font_sizes/font_size = 29
+text = "Master Volume"
+
+[node name="Master" type="HSlider" parent="CanvasLayer/SettingsPanel/Sound/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_rdrrm")
+value = 100.0
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/SettingsPanel/Sound/VBoxContainer"]
+layout_mode = 2
+
+[node name="SFXlbl" type="Label" parent="CanvasLayer/SettingsPanel/Sound/VBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 7
+theme_override_fonts/font = ExtResource("2_ah5j4")
+theme_override_font_sizes/font_size = 29
+text = "SFX Volume"
+
+[node name="SFX" type="HSlider" parent="CanvasLayer/SettingsPanel/Sound/VBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme = ExtResource("2_rdrrm")
+value = 100.0
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="CanvasLayer/SettingsPanel/Sound/VBoxContainer"]
+layout_mode = 2
+
+[node name="Musiclbl" type="Label" parent="CanvasLayer/SettingsPanel/Sound/VBoxContainer/VBoxContainer3"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 7
+theme_override_fonts/font = ExtResource("2_ah5j4")
+theme_override_font_sizes/font_size = 29
+text = "Music Volume"
+
+[node name="Music" type="HSlider" parent="CanvasLayer/SettingsPanel/Sound/VBoxContainer/VBoxContainer3"]
+layout_mode = 2
+theme = ExtResource("2_rdrrm")
+value = 100.0
+
+[node name="Credits" type="Control" parent="CanvasLayer/SettingsPanel"]
+visible = false
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -493.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/SettingsPanel/Credits"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 0.290196)
+theme_override_font_sizes/font_size = 41
+text = "Credits"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/SettingsPanel/Credits"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -143.5
+offset_top = -138.0
+offset_right = 143.5
+offset_bottom = 138.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 26
+alignment = 1
+
+[node name="Design&Art" type="Label" parent="CanvasLayer/SettingsPanel/Credits/VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+theme_override_constants/outline_size = 7
+theme_override_fonts/font = ExtResource("2_ah5j4")
+theme_override_font_sizes/font_size = 45
+text = "Skin - Game Design & Art"
+horizontal_alignment = 1
+
+[node name="Programming" type="Label" parent="CanvasLayer/SettingsPanel/Credits/VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+theme_override_constants/outline_size = 7
+theme_override_fonts/font = ExtResource("2_ah5j4")
+theme_override_font_sizes/font_size = 45
+text = "Plant - Programming"
+horizontal_alignment = 1
