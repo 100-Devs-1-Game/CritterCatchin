@@ -1,180 +1,277 @@
-[gd_scene load_steps=8 format=3 uid="uid://63ryhkwq34l2"]
+[gd_scene load_steps=18 format=3 uid="uid://63ryhkwq34l2"]
 
 [ext_resource type="Script" uid="uid://b7rqbknafl3kt" path="res://scenes/title.gd" id="1_4ignj"]
+[ext_resource type="Texture2D" uid="uid://c6lwjmjtbacdx" path="res://assets/menu.png" id="2_wosw1"]
+[ext_resource type="Texture2D" uid="uid://b2lsl8lcpr7lr" path="res://assets/bugs/002.png" id="3_hiwto"]
+[ext_resource type="FontFile" uid="uid://sja5jpfqrgol" path="res://fonts/PixelGame-R9AZe.otf" id="3_p6dhs"]
+[ext_resource type="Texture2D" uid="uid://dvjc1oyfsudik" path="res://assets/white_board.png" id="3_yql1r"]
+[ext_resource type="Texture2D" uid="uid://u25g6d1jgi58" path="res://assets/layers2/001.png" id="9_hiwto"]
+[ext_resource type="Texture2D" uid="uid://0ufdj04xq7vb" path="res://assets/layers2/000.png" id="10_w65of"]
+
+[sub_resource type="Shader" id="Shader_4rr2b"]
+code = "//This is a slightly edited version of https://godotshaders.com/shader/waving-particles
+//By SteamPunkDemon.
+
+shader_type canvas_item;
+
+uniform vec2 dimensions = vec2(1152.0, 648.0); 
+
+uniform float rows = 20.0;
+uniform float columns = 5.0;
+uniform float vertical_scroll : hint_range(-1.0, 1.0, 0.01) = 0.5;
+uniform float horizontal_scroll : hint_range(-1.0, 1.0, 0.01) = 0.1;
+uniform float size_min : hint_range(0.1, 1.0, 0.1) = 0.3;
+uniform float size_max : hint_range(0.1, 1.0, 0.1) = 0.7; 
+uniform float wave_min : hint_range(0.0, 1.0, 0.1) = 0.1;
+uniform float wave_max : hint_range(0.0, 1.0, 0.1) = 1.0; 
+uniform float wave_speed : hint_range(0.0, 2.0, 0.1) = 0.5;
+uniform float wave_rotation : hint_range(-1.0, 1.0, 0.1) = 1.0;
+
+uniform vec4 far_color : source_color = vec4(0.5, 0.5, 0.5, 1.0);
+uniform vec4 near_color : source_color = vec4(1.0, 1.0, 1.0, 1.0);
+
+uniform sampler2D particle_texture : source_color, filter_nearest_mipmap;
+
+void fragment() {
+	float time = 10000.0 + TIME;
+
+	float row_rn = fract(sin(floor((UV.y - vertical_scroll * time) * rows)));
+	float column_rn = fract(sin(floor((UV.x + row_rn - horizontal_scroll * time) * columns)));
+	float wave = sin(wave_speed * time + column_rn * 90.0);
+	vec2 uv = (vec2(fract((UV.x + row_rn - horizontal_scroll * time + (wave * (wave_min + (wave_max - wave_min) * column_rn) / columns / 2.0)) * columns), fract((UV.y - vertical_scroll * time) * rows)) * 2.0 - 1.0) * vec2(dimensions.x / dimensions.y * rows / columns, 1.0);
+	float size = size_min + (size_max - size_min) * column_rn;
+	vec4 color = mix(far_color, near_color, column_rn);
+	
+	float a = ((column_rn + wave) * wave_rotation) * PI;
+	uv *= mat2(vec2(cos(a), -sin(a)), vec2(sin(a), cos(a)));
+
+	vec4 particle_texture_pixel = texture(particle_texture, (uv / size + 1.0) / 2.0) * color;
+
+	COLOR = vec4(particle_texture_pixel.rgb, particle_texture_pixel.a);
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_81wt4"]
+shader = SubResource("Shader_4rr2b")
+shader_parameter/dimensions = Vector2(1152, 648)
+shader_parameter/rows = 22.93
+shader_parameter/columns = 11.225
+shader_parameter/vertical_scroll = 0.2
+shader_parameter/horizontal_scroll = 0.1
+shader_parameter/size_min = 0.5
+shader_parameter/size_max = 1.0
+shader_parameter/wave_min = 0.1
+shader_parameter/wave_max = 1.0
+shader_parameter/wave_speed = 0.5
+shader_parameter/wave_rotation = 1.0
+shader_parameter/far_color = Color(0.5, 0.5, 0.5, 1)
+shader_parameter/near_color = Color(1, 1, 1, 1)
+shader_parameter/particle_texture = ExtResource("3_hiwto")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pvspv"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4ignj"]
-bg_color = Color(0.145218, 0.0425137, 6.01634e-09, 1)
-border_width_left = 4
-border_width_top = 4
-border_width_right = 6
-border_width_bottom = 6
-border_color = Color(0.100706, 0.0233417, 3.00817e-09, 1)
-shadow_size = 10
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hiwto"]
+bg_color = Color(0.752694, 0.492277, 0.176421, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_detail = 6
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wosw1"]
-bg_color = Color(0.966254, 0.442388, 1.15514e-06, 1)
-border_width_left = 6
-border_width_top = 6
-border_width_right = 4
-border_width_bottom = 4
-border_color = Color(0.411765, 0.172549, 0, 1)
-shadow_size = 10
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4rr2b"]
+bg_color = Color(0.568627, 0.364706, 0.113725, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_detail = 6
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p6dhs"]
-bg_color = Color(0.997218, 0.457468, 5.77569e-07, 1)
-border_width_left = 4
-border_width_top = 4
-border_width_right = 6
-border_width_bottom = 6
-border_color = Color(0.411765, 0.172549, 0, 1)
-shadow_size = 10
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w65of"]
+bg_color = Color(0.752694, 0.492277, 0.176421, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_detail = 6
+expand_margin_left = 17.0
+expand_margin_right = 17.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pyl7j"]
-bg_color = Color(0.772115, 0.347835, 0, 1)
-border_width_left = 4
-border_width_top = 4
-border_width_right = 6
-border_width_bottom = 6
-border_color = Color(0.411765, 0.172549, 0, 1)
-shadow_size = 10
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yql1r"]
+bg_color = Color(0.568627, 0.364706, 0.113725, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_detail = 6
+expand_margin_left = 17.0
+expand_margin_right = 17.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b3w7a"]
-bg_color = Color(0.571147, 0.392055, 0.211499, 1)
-border_width_left = 7
-border_width_top = 7
-border_width_right = 7
-border_width_bottom = 7
-border_color = Color(0.44278, 0.297608, 0.15166, 1)
-corner_radius_top_left = 25
-corner_radius_top_right = 25
-corner_radius_bottom_right = 25
-corner_radius_bottom_left = 25
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ygloa"]
+bg_color = Color(0.752694, 0.492277, 0.176421, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_detail = 6
+expand_margin_left = 36.0
+expand_margin_right = 36.0
 
-[node name="Title" type="Node2D" node_paths=PackedStringArray("play_button", "settings_button", "leaderboard_button", "quit_button")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ia1n6"]
+bg_color = Color(0.568627, 0.364706, 0.113725, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_detail = 6
+expand_margin_left = 36.0
+expand_margin_right = 36.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6civk"]
+bg_color = Color(0.752694, 0.492277, 0.176421, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_detail = 6
+
+[node name="Title" type="Node2D" node_paths=PackedStringArray("play_button", "settings_button", "leaderboard_button", "quit_button", "menu_panel")]
 script = ExtResource("1_4ignj")
-play_button = NodePath("CanvasLayer/VBoxContainer/play")
-settings_button = NodePath("CanvasLayer/VBoxContainer/settings")
-leaderboard_button = NodePath("CanvasLayer/VBoxContainer/leaderboard")
-quit_button = NodePath("CanvasLayer/VBoxContainer/quit")
+play_button = NodePath("CanvasLayer/Outline/MenuPanel/VBoxContainer/play")
+settings_button = NodePath("CanvasLayer/Outline/MenuPanel/VBoxContainer/settings")
+leaderboard_button = NodePath("CanvasLayer/Outline/MenuPanel/VBoxContainer/leaderboard")
+quit_button = NodePath("CanvasLayer/Outline/MenuPanel/VBoxContainer/quit")
+menu_panel = NodePath("CanvasLayer/Outline")
+bob_amplitude = 3.0
+bob_speed = 7.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+[node name="ColorRect2" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_81wt4")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0.45098, 0.756863, 1)
+color = Color(0.482353, 0.815686, 0.505882, 1)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
+[node name="Outline" type="TextureRect" parent="CanvasLayer"]
+self_modulate = Color(0, 0, 0, 1)
+offset_left = 29.0
+offset_top = -15.0
+offset_right = 1128.0
+offset_bottom = 630.0
+texture = ExtResource("3_yql1r")
+expand_mode = 1
+
+[node name="MenuPanel" type="TextureRect" parent="CanvasLayer/Outline"]
+self_modulate = Color(0.95317, 0.912697, 0.723421, 1)
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -160.0
-offset_top = -114.0
-offset_right = 160.0
-offset_bottom = 178.0
+offset_left = -290.5
+offset_top = -305.5
+offset_right = 286.5
+offset_bottom = 312.5
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 20
+texture = ExtResource("2_wosw1")
+expand_mode = 1
 
-[node name="play" type="Button" parent="CanvasLayer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 61.185)
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Outline/MenuPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -81.5
+offset_top = 72.0
+offset_right = 82.5
+offset_bottom = 278.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 17
+
+[node name="play" type="Button" parent="CanvasLayer/Outline/MenuPanel/VBoxContainer"]
 layout_mode = 2
-theme_override_colors/font_outline_color = Color(0.411765, 0.172549, 0, 1)
-theme_override_colors/font_color = Color(0.772549, 0.34902, 0, 1)
-theme_override_constants/outline_size = 10
+theme_override_colors/font_hover_color = Color(0.519636, 0.484062, 0.328357, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 7
+theme_override_fonts/font = ExtResource("3_p6dhs")
 theme_override_font_sizes/font_size = 34
 theme_override_styles/focus = SubResource("StyleBoxEmpty_pvspv")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_4ignj")
-theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_wosw1")
-theme_override_styles/hover = SubResource("StyleBoxFlat_p6dhs")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_wosw1")
-theme_override_styles/normal = SubResource("StyleBoxFlat_pyl7j")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_pvspv")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_pvspv")
+theme_override_styles/hover = SubResource("StyleBoxFlat_hiwto")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_pvspv")
+theme_override_styles/normal = SubResource("StyleBoxFlat_4rr2b")
 text = "PLAY"
 
-[node name="settings" type="Button" parent="CanvasLayer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 61.185)
+[node name="settings" type="Button" parent="CanvasLayer/Outline/MenuPanel/VBoxContainer"]
 layout_mode = 2
-theme_override_colors/font_outline_color = Color(0.411765, 0.172549, 0, 1)
-theme_override_colors/font_color = Color(0.772549, 0.34902, 0, 1)
-theme_override_constants/outline_size = 10
+theme_override_colors/font_hover_color = Color(0.519636, 0.484062, 0.328357, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 7
+theme_override_fonts/font = ExtResource("3_p6dhs")
 theme_override_font_sizes/font_size = 34
 theme_override_styles/focus = SubResource("StyleBoxEmpty_pvspv")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_4ignj")
-theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_wosw1")
-theme_override_styles/hover = SubResource("StyleBoxFlat_p6dhs")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_wosw1")
-theme_override_styles/normal = SubResource("StyleBoxFlat_pyl7j")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_pvspv")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_pvspv")
+theme_override_styles/hover = SubResource("StyleBoxFlat_w65of")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_pvspv")
+theme_override_styles/normal = SubResource("StyleBoxFlat_yql1r")
 text = "SETTINGS"
 
-[node name="leaderboard" type="Button" parent="CanvasLayer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 61.185)
+[node name="leaderboard" type="Button" parent="CanvasLayer/Outline/MenuPanel/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(0.411765, 0.172549, 0, 1)
-theme_override_colors/font_color = Color(0.772549, 0.34902, 0, 1)
-theme_override_constants/outline_size = 10
+theme_override_colors/font_hover_color = Color(0.519636, 0.484062, 0.328357, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 7
+theme_override_fonts/font = ExtResource("3_p6dhs")
 theme_override_font_sizes/font_size = 34
 theme_override_styles/focus = SubResource("StyleBoxEmpty_pvspv")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_4ignj")
-theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_wosw1")
-theme_override_styles/hover = SubResource("StyleBoxFlat_p6dhs")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_wosw1")
-theme_override_styles/normal = SubResource("StyleBoxFlat_pyl7j")
-disabled = true
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_pvspv")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_pvspv")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ygloa")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_pvspv")
+theme_override_styles/normal = SubResource("StyleBoxFlat_ia1n6")
 text = "LEADERBOARD"
 
-[node name="quit" type="Button" parent="CanvasLayer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 61.185)
+[node name="quit" type="Button" parent="CanvasLayer/Outline/MenuPanel/VBoxContainer"]
 layout_mode = 2
-theme_override_colors/font_outline_color = Color(0.411765, 0.172549, 0, 1)
-theme_override_colors/font_color = Color(0.772549, 0.34902, 0, 1)
-theme_override_constants/outline_size = 10
+theme_override_colors/font_hover_color = Color(0.519636, 0.484062, 0.328357, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 7
+theme_override_fonts/font = ExtResource("3_p6dhs")
 theme_override_font_sizes/font_size = 34
 theme_override_styles/focus = SubResource("StyleBoxEmpty_pvspv")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_4ignj")
-theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_wosw1")
-theme_override_styles/hover = SubResource("StyleBoxFlat_p6dhs")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_wosw1")
-theme_override_styles/normal = SubResource("StyleBoxFlat_pyl7j")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_pvspv")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_pvspv")
+theme_override_styles/hover = SubResource("StyleBoxFlat_6civk")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_pvspv")
+theme_override_styles/normal = SubResource("StyleBoxFlat_4rr2b")
 text = "QUIT"
 
-[node name="Panel" type="Panel" parent="CanvasLayer"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -269.0
-offset_top = -278.0
-offset_right = 269.0
-offset_bottom = -154.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_b3w7a")
+[node name="001" type="Sprite2D" parent="."]
+z_index = -3
+position = Vector2(933, 266)
+scale = Vector2(1.44596, 1.44596)
+texture = ExtResource("9_hiwto")
 
-[node name="Title" type="Label" parent="CanvasLayer/Panel"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -15.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_color = Color(1, 0.458824, 0, 1)
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(0.411281, 0.172096, 0, 1)
-theme_override_constants/shadow_offset_x = 6
-theme_override_constants/shadow_offset_y = 11
-theme_override_constants/outline_size = 21
-theme_override_constants/shadow_outline_size = 29
-theme_override_font_sizes/font_size = 51
-text = "Critter Catchin'"
-horizontal_alignment = 1
-vertical_alignment = 1
+[node name="002" type="Sprite2D" parent="001"]
+z_index = -3
+position = Vector2(38.5177, 5.37456)
+scale = Vector2(1.15551, 1.15551)
+texture = ExtResource("10_w65of")

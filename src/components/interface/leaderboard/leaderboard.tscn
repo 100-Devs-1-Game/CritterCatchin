@@ -1,0 +1,206 @@
+[gd_scene load_steps=8 format=3 uid="uid://nf43sbnt7mb0"]
+
+[ext_resource type="Script" uid="uid://cg5wejkqvn8w1" path="res://components/interface/leaderboard/leaderboard.gd" id="1_8q3qn"]
+[ext_resource type="Texture2D" uid="uid://b2lsl8lcpr7lr" path="res://assets/bugs/002.png" id="1_sosdm"]
+[ext_resource type="Texture2D" uid="uid://dvjc1oyfsudik" path="res://assets/white_board.png" id="2_5g3qv"]
+[ext_resource type="FontFile" uid="uid://sja5jpfqrgol" path="res://fonts/PixelGame-R9AZe.otf" id="3_5g3qv"]
+
+[sub_resource type="Shader" id="Shader_hiwto"]
+code = "//This is a slightly edited version of https://godotshaders.com/shader/waving-particles
+//By SteamPunkDemon.
+
+shader_type canvas_item;
+
+uniform vec2 dimensions = vec2(1152.0, 648.0); 
+
+uniform float rows = 20.0;
+uniform float columns = 5.0;
+uniform float vertical_scroll : hint_range(-1.0, 1.0, 0.01) = 0.5;
+uniform float horizontal_scroll : hint_range(-1.0, 1.0, 0.01) = 0.1;
+uniform float size_min : hint_range(0.1, 1.0, 0.1) = 0.3;
+uniform float size_max : hint_range(0.1, 1.0, 0.1) = 0.7; 
+uniform float wave_min : hint_range(0.0, 1.0, 0.1) = 0.1;
+uniform float wave_max : hint_range(0.0, 1.0, 0.1) = 1.0; 
+uniform float wave_speed : hint_range(0.0, 2.0, 0.1) = 0.5;
+uniform float wave_rotation : hint_range(-1.0, 1.0, 0.1) = 1.0;
+
+uniform vec4 far_color : source_color = vec4(0.5, 0.5, 0.5, 1.0);
+uniform vec4 near_color : source_color = vec4(1.0, 1.0, 1.0, 1.0);
+
+uniform sampler2D particle_texture : source_color, filter_nearest_mipmap;
+
+void fragment() {
+	float time = 10000.0 + TIME;
+
+	float row_rn = fract(sin(floor((UV.y - vertical_scroll * time) * rows)));
+	float column_rn = fract(sin(floor((UV.x + row_rn - horizontal_scroll * time) * columns)));
+	float wave = sin(wave_speed * time + column_rn * 90.0);
+	vec2 uv = (vec2(fract((UV.x + row_rn - horizontal_scroll * time + (wave * (wave_min + (wave_max - wave_min) * column_rn) / columns / 2.0)) * columns), fract((UV.y - vertical_scroll * time) * rows)) * 2.0 - 1.0) * vec2(dimensions.x / dimensions.y * rows / columns, 1.0);
+	float size = size_min + (size_max - size_min) * column_rn;
+	vec4 color = mix(far_color, near_color, column_rn);
+	
+	float a = ((column_rn + wave) * wave_rotation) * PI;
+	uv *= mat2(vec2(cos(a), -sin(a)), vec2(sin(a), cos(a)));
+
+	vec4 particle_texture_pixel = texture(particle_texture, (uv / size + 1.0) / 2.0) * color;
+
+	COLOR = vec4(particle_texture_pixel.rgb, particle_texture_pixel.a);
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8q3qn"]
+shader = SubResource("Shader_hiwto")
+shader_parameter/dimensions = Vector2(1152, 648)
+shader_parameter/rows = 22.93
+shader_parameter/columns = 11.225
+shader_parameter/vertical_scroll = 0.2
+shader_parameter/horizontal_scroll = 0.1
+shader_parameter/size_min = 0.5
+shader_parameter/size_max = 1.0
+shader_parameter/wave_min = 0.1
+shader_parameter/wave_max = 1.0
+shader_parameter/wave_speed = 0.5
+shader_parameter/wave_rotation = 1.0
+shader_parameter/far_color = Color(0.5, 0.5, 0.5, 1)
+shader_parameter/near_color = Color(1, 1, 1, 1)
+shader_parameter/particle_texture = ExtResource("1_sosdm")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5g3qv"]
+bg_color = Color(0.952941, 0.913725, 0.721569, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+
+[node name="Leaderboard" type="Node2D"]
+script = ExtResource("1_8q3qn")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect2" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_8q3qn")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.482353, 0.815686, 0.505882, 1)
+
+[node name="MenuPanel2" type="TextureRect" parent="CanvasLayer"]
+self_modulate = Color(0, 0, 0, 1)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -544.0
+offset_top = -356.0
+offset_right = 545.0
+offset_bottom = 317.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_5g3qv")
+expand_mode = 1
+
+[node name="MenuPanel4" type="TextureRect" parent="CanvasLayer/MenuPanel2"]
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -514.5
+offset_top = -420.5
+offset_right = 514.5
+offset_bottom = 245.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_5g3qv")
+expand_mode = 1
+
+[node name="MenuPanel5" type="TextureRect" parent="CanvasLayer/MenuPanel2"]
+self_modulate = Color(0.95317, 0.912697, 0.723421, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -506.5
+offset_top = -425.0
+offset_right = 445.5
+offset_bottom = 242.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.06446, 1.06446)
+texture = ExtResource("2_5g3qv")
+expand_mode = 1
+
+[node name="MenuPanel" type="TextureRect" parent="CanvasLayer"]
+self_modulate = Color(0.95317, 0.912697, 0.723421, 1)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -536.0
+offset_top = -349.0
+offset_right = 537.0
+offset_bottom = 312.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_5g3qv")
+expand_mode = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/MenuPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -262.5
+offset_top = -102.5
+offset_right = 262.5
+offset_bottom = 301.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MenuPanel/ScrollContainer"]
+layout_mode = 2
+
+[node name="LeaderboardLbl" type="Label" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -246.5
+offset_top = 8.0
+offset_right = 246.5
+offset_bottom = 115.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.519636, 0.484062, 0.328357, 1)
+theme_override_fonts/font = ExtResource("3_5g3qv")
+theme_override_font_sizes/font_size = 105
+text = "LEADERBOARD"
+horizontal_alignment = 1
+
+[node name="Close" type="Button" parent="CanvasLayer"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 27.0
+offset_top = -88.0
+offset_right = 188.0
+offset_bottom = -28.0
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("3_5g3qv")
+theme_override_font_sizes/font_size = 57
+theme_override_styles/normal = SubResource("StyleBoxFlat_5g3qv")
+text = "Back"
+
+[connection signal="child_exiting_tree" from="." to="." method="_on_child_exiting_tree"]
+[connection signal="pressed" from="CanvasLayer/Close" to="." method="_on_close_pressed"]

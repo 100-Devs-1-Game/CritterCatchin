@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://c5goa0clvtkd3"
+path="res://.godot/imported/Critter Catchin.mp3-8c573496f29f75d2fd4c40ce95fe8af3.mp3str"
+
+[deps]
+
+source_file="res://audio/Critter Catchin.mp3"
+dest_files=["res://.godot/imported/Critter Catchin.mp3-8c573496f29f75d2fd4c40ce95fe8af3.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

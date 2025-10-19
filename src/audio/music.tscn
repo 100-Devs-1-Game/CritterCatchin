@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://t42xjbyiketb"]
+
+[ext_resource type="AudioStream" uid="uid://c5goa0clvtkd3" path="res://audio/Critter Catchin.mp3" id="1_xnye0"]
+
+[node name="MusicPlayer" type="AudioStreamPlayer"]
+stream = ExtResource("1_xnye0")
+volume_db = -10.0
+autoplay = true
+parameters/looping = true

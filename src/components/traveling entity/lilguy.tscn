@@ -1,8 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://e1am37c5qjpn"]
 
 [ext_resource type="Script" uid="uid://cp72nq4k5rsob" path="res://components/traveling entity/lilguy.gd" id="1_imegh"]
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_k56th"]
+[ext_resource type="Texture2D" uid="uid://b2lsl8lcpr7lr" path="res://assets/bugs/002.png" id="2_bcbso"]
 
 [node name="lilguy" type="Node2D" node_paths=PackedStringArray("sprite")]
 z_index = 13
@@ -10,5 +9,5 @@ script = ExtResource("1_imegh")
 sprite = NodePath("Sprite2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.0429688, 0.0429688)
-texture = SubResource("NoiseTexture2D_k56th")
+scale = Vector2(0.53, 0.53)
+texture = ExtResource("2_bcbso")

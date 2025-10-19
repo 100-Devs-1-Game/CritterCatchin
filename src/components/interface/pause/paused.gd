@@ -1,23 +1,26 @@
 extends Control
 
 @export var pause: Panel
-@export var confirm: Panel
-
-var parent: CanvasLayer
 
 func _ready() -> void:
-	if get_parent() is CanvasLayer:
-		parent = get_parent()
+	_pause()
+
+func _pause() -> void:
 	SettingsManager.pause_game(true)
+	SettingsManager.pause_streams(true)
+
+func _unpause() -> void:
+	SettingsManager.pause_game(false)
+	SettingsManager.pause_streams(false)
+	Eventbus.pauser_removed.emit()
+	queue_free()
 
 func _resume() -> void:
-	SettingsManager.pause_game(false)
-	queue_free()
+	_unpause()
 
 func _settings() -> void:
 	SettingsManager.display_settings_overlay(self)
 
 func _exit() -> void:
-	SettingsManager.pause_game(false)
+	_unpause()
 	Sceneloader.to_title()
-	queue_free()

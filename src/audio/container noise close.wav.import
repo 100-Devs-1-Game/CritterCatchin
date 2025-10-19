@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://ox11i1o5ionv"
+path="res://.godot/imported/container noise close.wav-697122f2ef9a55917b4c2e99787b6fdb.sample"
+
+[deps]
+
+source_file="res://audio/container noise close.wav"
+dest_files=["res://.godot/imported/container noise close.wav-697122f2ef9a55917b4c2e99787b6fdb.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

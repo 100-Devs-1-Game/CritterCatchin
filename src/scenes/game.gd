@@ -1,122 +1,138 @@
 extends Node2D
 
-@export var click_cooldown: float = 0.5
-@export var time_penalty: float = 2.0
-@export var total_time: float = 20.0
+@export var click_cooldown : float = 0.5
+@export var time_penalty : float = 2.0
+@export var total_time : float = 20.0
 @export var timer_label: Label
 @export var stage_label: Label
-@export var cap_point: Marker2D
-
+@export var world: Node2D
 @export var game_over_scene: PackedScene
 @export var cont_anim: AnimationPlayer
-@export var bug_zone: Node2D
+@export var end_call_delay : float = 1.0
 
-var _can_click: bool = true
-var _timer: float = 0.0
-var _bug_caught_recent: bool = false
-var times_up: bool = false
-var game_running: bool = false
-var current_stage: int = 1
+var _can_click : bool = true
+var _timer : float = 0.0
+var _bug_caught_recent : bool = false
+var times_up :bool = false
+var game_running : bool = false
+var current_stage : int = 1
+
+var _lowtime_playing: bool = false
 
 const PAUSED = preload("res://components/interface/pause/paused.tscn")
+const TIME_RUNNING_OUT = preload("res://audio/time running out.mp3")
 
-func _ready() -> void:
+func _ready():
 	Eventbus.bug_caught.connect(_on_bug_caught)
+	Eventbus.sound_request.connect(play_audio)
+	animated_leaves()
 	_start_level()
 
-func _process(delta: float) -> void:
-	if game_running:
-		_timer -= delta
-		if _timer <= 0.0:
-			_timer = 0.0
-			_on_time_up()
-		_update_timer_label()
+func _process(delta):
+	if not game_running:
+		return
 
-		if Input.is_action_just_pressed("click") and _can_click:
-			_can_click = false
+	_timer = max(_timer - delta, 0.0)
 
-			await get_tree().create_timer(0.015).timeout
+	if _timer <= 5.0 and not _lowtime_playing:
+		$GameAudio.stream = TIME_RUNNING_OUT
+		$GameAudio.play()
+		_lowtime_playing = true
+	elif _timer > 5.0 and _lowtime_playing:
+		$GameAudio.stop()
+		_lowtime_playing = false
 
-			if _bug_caught_recent:
-				_bug_caught_recent = false
-			else:
-				_timer = max(0.0, _timer - time_penalty)
-				_flash_wrong_click()
+	if _timer <= 0: 
+		_on_time_up()
+	_update_timer_label()
 
-			await get_tree().create_timer(click_cooldown).timeout
-			_can_click = true
+	if Input.is_action_just_pressed("click") and _can_click:
+		_can_click = false
+		await get_tree().create_timer(0.015).timeout
 
-func _start_level() -> void:
+		if _bug_caught_recent:
+			_bug_caught_recent = false
+		else:
+			_timer = max(_timer - time_penalty, 0.0)
+			_flash_wrong_click()
+
+		await get_tree().create_timer(click_cooldown).timeout
+		_can_click = true
+
+func _start_level():
+	world.show_net()
+	current_stage += 1
 	game_running = true
-	_reset_time()
+	_timer = total_time
 	_update_timer_label()
 	Eventbus.level_started.emit(current_stage)
 
-func _end_level() -> void:
+func _end_level():
 	game_running = false
-	_reset_time()
+	_timer = total_time
 	_update_timer_label()
 
-func _reset_time() -> void:
-	_timer = total_time
-
-func _on_bug_caught() -> void:
+func _on_bug_caught():
+	play_audio("res://audio/pop.mp3")
 	_bug_caught_recent = true
-	game_running = false
-	await get_tree().create_timer(1.0).timeout
-	_stash_bug()
-	Eventbus.level_ended.emit()
-	await get_tree().create_timer(1.0).timeout
 	_end_level()
+	await get_tree().create_timer(end_call_delay).timeout
+	Eventbus.level_ended.emit()
+	await Eventbus.special_removed
+	world.hide_net(true)
+	_stash_bug()
 
-
-func _stash_bug() -> void:
-	Eventbus.capture_bug.emit(cap_point.global_position)
-
+## Begins the sequence to stashing the bug in the container
+func _stash_bug():
 	var bug_texture: Texture2D = null
 
 	if cont_anim:
 		cont_anim.play("lid")
-		bug_texture = await Eventbus.add_bug
+		play_audio("res://audio/container noise open.wav")
+		await Eventbus.add_bug
 		cont_anim.play_backwards("lid")
+		play_audio("res://audio/container noise close.wav")
+		await cont_anim.animation_finished
 
-	if bug_zone:
-		var bug = Sprite2D.new()
-		bug.scale = Vector2(0.043, 0.0434)
-		bug.texture = bug_texture
-
-		var top_left = bug_zone.global_position - bug_zone.rect_size * 0.5
-		var random_pos = Vector2(
-			randf_range(top_left.x, top_left.x + bug_zone.rect_size.x),
-			randf_range(top_left.y, top_left.y + bug_zone.rect_size.y)
-		)
-		bug.global_position = random_pos
-
-		add_child(bug)
-
-	current_stage += 1
-	stage_label.text = "STAGE: " + str(current_stage)
-
+	stage_label.text = "STAGE: %d" % current_stage
 	_start_level()
 
-func _on_time_up() -> void:
-	if !times_up:
-		Eventbus.level_ended.emit()
-		times_up = true
-		var g = game_over_scene.instantiate()
-		add_child(g)
+func _on_time_up():
+	if times_up:
+		return
+	Eventbus.level_ended.emit()
+	times_up = true
+	world.hide_net(false)
+	$GameAudio.stop()
+	$CanvasLayer/Overlay/Control.visible = false
+	await get_tree().create_timer(2.0).timeout
+	$FinalLayer.visible = true ; $FinalLayer.set_final_info(current_stage)
+	#add_child(game_over_scene.instantiate())
 
-func _flash_wrong_click() -> void:
-	var original_color = timer_label.modulate
+func animated_leaves():
+	await get_tree().create_timer(randf_range(0, 20)).timeout
+	$BGSprite.play("leaves")
+	animated_leaves()
+
+func _flash_wrong_click():
+	var orig = timer_label.modulate
 	timer_label.modulate = Color(1, 0, 0)
-	var tween = create_tween()
-	tween.tween_property(timer_label, "modulate", original_color, 0.3)
+	create_tween().tween_property(timer_label, "modulate", orig, 0.3)
+	Eventbus.wrong_click.emit()
 
-func _update_timer_label() -> void:
+func _update_timer_label():
 	if timer_label and is_instance_valid(timer_label):
 		timer_label.text = str(roundi(_timer))
 
-func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("pause"):
-		var p = PAUSED.instantiate()
-		$CanvasLayer.add_child(p)
+func play_audio(audio: String):
+	if SettingsManager.is_paused():
+		await Eventbus.pauser_removed
+	$GameAudio.stream = load(audio)
+	$GameAudio.play()
+
+func _input(event):
+	if event.is_action_pressed("pause") and !times_up:
+		$CanvasLayer.add_child(PAUSED.instantiate())
+
+func return_to_title() -> void:
+	Sceneloader.to_title()

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://diqnnakvyjg43"
+path="res://.godot/imported/time running out.mp3-31e9916c7b54645020280b647739c161.mp3str"
+
+[deps]
+
+source_file="res://audio/time running out.mp3"
+dest_files=["res://.godot/imported/time running out.mp3-31e9916c7b54645020280b647739c161.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

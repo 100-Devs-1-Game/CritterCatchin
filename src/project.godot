@@ -21,6 +21,16 @@ Eventbus="*res://autoloads/eventbus.gd"
 DataManager="*res://autoloads/data_manager.gd"
 SettingsManager="*res://autoloads/settings_manager.gd"
 Sceneloader="*res://autoloads/sceneloader.gd"
+AudioManager="*res://autoloads/audio_manager.gd"
+
+[display]
+
+mouse_cursor/custom_image="uid://b5drlvmul28l4"
+mouse_cursor/custom_image_hotspot=Vector2(8, 8)
+
+[global_group]
+
+stop_on_pause=""
 
 [input]
 

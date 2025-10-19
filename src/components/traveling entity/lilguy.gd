@@ -26,20 +26,11 @@ func _ready():
 
 	Eventbus.bug_caught.connect(func(): speed = 0.0)
 
+
 func _process(delta):
 	if not capturing_bug:
 		position += velocity.normalized() * speed * delta
 		_check_bounce()
-
-	if capturing_bug:
-		speed = 420.0
-		var dir = target_pos - global_position
-		if dir.length() > 0.4:
-			global_position += dir.normalized() * speed * delta
-		else:
-			capturing_bug = false
-			Eventbus.add_bug.emit(sprite.texture)
-			queue_free()
 
 func _check_bounce():
 	if position.x < bounds_rect.position.x:
@@ -60,12 +51,7 @@ func _check_bounce():
 		velocity.y = -velocity.y
 		velocity = velocity.rotated(randf_range(-bounce_angle_variance, bounce_angle_variance))
 
-func move_to(pos: Vector2) -> void:
-	target_pos = pos
-	capturing_bug = true
-
 func add_catch_handler() -> void:
-	Eventbus.capture_bug.connect(move_to)
 	var c = CATCH_HANDLER.instantiate()
 	target = true
 	add_child(c)

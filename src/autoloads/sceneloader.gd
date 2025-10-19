@@ -11,6 +11,7 @@ func to_title() -> void:
 func to_game() -> void:
 	load_scene("res://scenes/game.tscn")
 
+## Loads a specific path, used for level loading.
 func load_scene(path: String) -> void:
 	var err = get_tree().change_scene_to_file(path)
 	if err != OK:
