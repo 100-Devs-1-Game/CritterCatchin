@@ -1,0 +1,245 @@
+[gd_scene load_steps=9 format=3 uid="uid://c2st56rpxi13f"]
+
+[ext_resource type="Script" uid="uid://dpo21ljtrfgd3" path="res://components/interface/credits/credits.gd" id="1_mlhjl"]
+[ext_resource type="Texture2D" uid="uid://dvjc1oyfsudik" path="res://assets/white_board.png" id="2_44hq3"]
+[ext_resource type="FontFile" uid="uid://sja5jpfqrgol" path="res://fonts/PixelGame-R9AZe.otf" id="3_4u5wf"]
+[ext_resource type="PackedScene" uid="uid://dn0e3a1tercx6" path="res://components/interface/animator/ui_animator.tscn" id="4_4u5wf"]
+[ext_resource type="PackedScene" uid="uid://ddevy2x07x17c" path="res://components/AudioCaller/audio_manager_caller.tscn" id="5_6cp3r"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_44hq3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4u5wf"]
+bg_color = Color(0.752694, 0.492277, 0.176421, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_detail = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6cp3r"]
+bg_color = Color(0.568627, 0.364706, 0.113725, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_detail = 6
+
+[node name="Credits" type="Node2D"]
+script = ExtResource("1_mlhjl")
+
+[node name="UIAnimator" parent="." node_paths=PackedStringArray("target") instance=ExtResource("4_4u5wf")]
+target = NodePath("../Credits/MenuPanel2")
+
+[node name="Credits" type="CanvasLayer" parent="."]
+
+[node name="MenuPanel2" type="TextureRect" parent="Credits"]
+self_modulate = Color(0, 0, 0, 1)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -497.0
+offset_top = -332.0
+offset_right = 592.0
+offset_bottom = 341.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.937372, 0.937372)
+texture = ExtResource("2_44hq3")
+expand_mode = 1
+
+[node name="MenuPanel4" type="TextureRect" parent="Credits/MenuPanel2"]
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -514.5
+offset_top = -420.5
+offset_right = 514.5
+offset_bottom = 245.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_44hq3")
+expand_mode = 1
+
+[node name="MenuPanel5" type="TextureRect" parent="Credits/MenuPanel2"]
+self_modulate = Color(0.95317, 0.912697, 0.723421, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -506.5
+offset_top = -425.0
+offset_right = 445.5
+offset_bottom = 242.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.06446, 1.06446)
+texture = ExtResource("2_44hq3")
+expand_mode = 1
+
+[node name="MenuPanel" type="TextureRect" parent="Credits/MenuPanel2"]
+self_modulate = Color(0.95317, 0.912697, 0.723421, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -536.5
+offset_top = -329.5
+offset_right = 536.5
+offset_bottom = 331.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_44hq3")
+expand_mode = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Credits/MenuPanel2/MenuPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -245.5
+offset_top = -189.5
+offset_right = 245.5
+offset_bottom = 288.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 28
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Credits/MenuPanel2/MenuPanel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = -8
+
+[node name="Skin" type="Label" parent="Credits/MenuPanel2/MenuPanel/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(491.01, 27.795)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 17
+theme_override_fonts/font = ExtResource("3_4u5wf")
+theme_override_font_sizes/font_size = 63
+text = "Skin"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Skin2" type="Label" parent="Credits/MenuPanel2/MenuPanel/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(491.01, 27.795)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.521569, 0.482353, 0.329412, 1)
+theme_override_constants/shadow_outline_size = 17
+theme_override_fonts/font = ExtResource("3_4u5wf")
+theme_override_font_sizes/font_size = 39
+text = "Art"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Skin3" type="Label" parent="Credits/MenuPanel2/MenuPanel/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(491.01, 27.795)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.521569, 0.482353, 0.329412, 1)
+theme_override_constants/shadow_outline_size = 17
+theme_override_fonts/font = ExtResource("3_4u5wf")
+theme_override_font_sizes/font_size = 39
+text = "Game Design"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Credits/MenuPanel2/MenuPanel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = -4
+
+[node name="Plant" type="Label" parent="Credits/MenuPanel2/MenuPanel/VBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(491.01, 27.795)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 17
+theme_override_fonts/font = ExtResource("3_4u5wf")
+theme_override_font_sizes/font_size = 63
+text = "Plant"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Plant2" type="Label" parent="Credits/MenuPanel2/MenuPanel/VBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(491.01, 27.795)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.521569, 0.482353, 0.329412, 1)
+theme_override_constants/shadow_outline_size = 17
+theme_override_fonts/font = ExtResource("3_4u5wf")
+theme_override_font_sizes/font_size = 39
+text = "Programming"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="Credits/MenuPanel2/MenuPanel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = -7
+
+[node name="Tomto" type="Label" parent="Credits/MenuPanel2/MenuPanel/VBoxContainer/VBoxContainer3"]
+custom_minimum_size = Vector2(491.01, 27.795)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 17
+theme_override_fonts/font = ExtResource("3_4u5wf")
+theme_override_font_sizes/font_size = 63
+text = "Tomto"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Tomto2" type="Label" parent="Credits/MenuPanel2/MenuPanel/VBoxContainer/VBoxContainer3"]
+custom_minimum_size = Vector2(491.01, 27.795)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.521569, 0.482353, 0.329412, 1)
+theme_override_constants/shadow_outline_size = 17
+theme_override_fonts/font = ExtResource("3_4u5wf")
+theme_override_font_sizes/font_size = 39
+text = "Music"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="quit" type="Button" parent="Credits/MenuPanel2/MenuPanel/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(0.519636, 0.484062, 0.328357, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 7
+theme_override_fonts/font = ExtResource("3_4u5wf")
+theme_override_font_sizes/font_size = 34
+theme_override_styles/focus = SubResource("StyleBoxEmpty_44hq3")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_44hq3")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_44hq3")
+theme_override_styles/hover = SubResource("StyleBoxFlat_4u5wf")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_44hq3")
+theme_override_styles/normal = SubResource("StyleBoxFlat_6cp3r")
+text = "return to title"
+
+[node name="Creditslbl" type="Label" parent="Credits/MenuPanel2"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -247.0
+offset_top = 40.0
+offset_right = 246.0
+offset_bottom = 147.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.519636, 0.484062, 0.328357, 1)
+theme_override_fonts/font = ExtResource("3_4u5wf")
+theme_override_font_sizes/font_size = 105
+text = "CREDITS"
+horizontal_alignment = 1
+
+[node name="AudioManagerCaller" parent="." node_paths=PackedStringArray("sound_buttons") instance=ExtResource("5_6cp3r")]
+sound_buttons = [NodePath("../Credits/MenuPanel2/MenuPanel/VBoxContainer/quit")]
+
+[connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]
+[connection signal="pressed" from="Credits/MenuPanel2/MenuPanel/VBoxContainer/quit" to="." method="_on_quit_pressed"]

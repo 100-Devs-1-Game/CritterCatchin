@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=16 format=3 uid="uid://c23fe0nle1t5f"]
+[gd_resource type="Theme" load_steps=18 format=3 uid="uid://c23fe0nle1t5f"]
 
 [ext_resource type="FontFile" uid="uid://sja5jpfqrgol" path="res://fonts/PixelGame-R9AZe.otf" id="1_tycv2"]
 
@@ -59,6 +59,13 @@ border_width_right = 15
 border_width_bottom = 11
 border_color = Color(0, 0, 0, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tycv2"]
+bg_color = Color(0.191047, 0.227219, 0.456537, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o7lot"]
 bg_color = Color(0, 0, 0, 0.545098)
 corner_radius_top_left = 9
@@ -78,6 +85,8 @@ border_color = Color(0, 0, 0, 1)
 grow_begin = 0.0
 grow_end = 0.0
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tycv2"]
+
 [resource]
 CheckBox/colors/font_color = Color(0.87451, 0, 0.192157, 1)
 CheckBox/colors/font_hover_color = Color(0.95, 0.95, 0.95, 1)
@@ -90,6 +99,8 @@ HSlider/icons/grabber_highlight = SubResource("GradientTexture2D_18246")
 HSlider/styles/grabber_area = SubResource("StyleBoxFlat_rdrrm")
 HSlider/styles/grabber_area_highlight = SubResource("StyleBoxFlat_rdrrm")
 HSlider/styles/slider = SubResource("StyleBoxFlat_1gl4y")
+LineEdit/styles/focus = null
+LineEdit/styles/normal = SubResource("StyleBoxFlat_tycv2")
 OptionButton/colors/font_color = Color(1, 1, 1, 1)
 OptionButton/constants/outline_size = 6
 OptionButton/font_sizes/font_size = 32
@@ -102,3 +113,4 @@ SpinBox/styles/up_background = SubResource("StyleBoxFlat_y3ar8")
 SpinBox/styles/up_background_hovered = SubResource("StyleBoxFlat_y3ar8")
 SpinBox/styles/up_background_pressed = SubResource("StyleBoxFlat_y3ar8")
 SpinBox/styles/up_down_buttons_separator = SubResource("StyleBoxLine_tycv2")
+VScrollBar/styles/scroll = SubResource("StyleBoxEmpty_tycv2")

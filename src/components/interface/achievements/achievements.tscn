@@ -1,0 +1,345 @@
+[gd_scene load_steps=13 format=3 uid="uid://dkqfiipqpl0ml"]
+
+[ext_resource type="Texture2D" uid="uid://dvjc1oyfsudik" path="res://assets/white_board.png" id="1_1v5f0"]
+[ext_resource type="Script" uid="uid://bq0jxjen1to0i" path="res://components/interface/achievements/achievements.gd" id="1_jlo27"]
+[ext_resource type="PackedScene" uid="uid://r3ml7vndr3p0" path="res://components/achievements/achievement_template.tscn" id="2_jlo27"]
+[ext_resource type="Theme" uid="uid://c23fe0nle1t5f" path="res://components/interface/theme/UITheme.tres" id="2_t4xlv"]
+[ext_resource type="FontFile" uid="uid://sja5jpfqrgol" path="res://fonts/PixelGame-R9AZe.otf" id="2_ycqaj"]
+[ext_resource type="PackedScene" uid="uid://dn0e3a1tercx6" path="res://components/interface/animator/ui_animator.tscn" id="3_nqeax"]
+[ext_resource type="PackedScene" uid="uid://ddevy2x07x17c" path="res://components/AudioCaller/audio_manager_caller.tscn" id="7_k1632"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ukcll"]
+bg_color = Color(0.952941, 0.913725, 0.721569, 1)
+border_width_top = 3
+border_width_bottom = 3
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cg23g"]
+bg_color = Color(0.568627, 0.364706, 0.113725, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_detail = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t4xlv"]
+bg_color = Color(0.952941, 0.913725, 0.721569, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nqeax"]
+bg_color = Color(0, 0, 0, 0.529412)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_detail = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k1632"]
+bg_color = Color(0, 0, 0, 0.227451)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_detail = 6
+
+[node name="Achievements" type="Node2D" node_paths=PackedStringArray("btn_reset", "btn_back", "conf_reset", "cncl_reset")]
+script = ExtResource("1_jlo27")
+scroll_path = NodePath("Main/MenuPanel2/MenuPanel/Panel/ScrollContainer")
+vbox_path = NodePath("Main/MenuPanel2/MenuPanel/Panel/ScrollContainer/AchievementList")
+card_scene = ExtResource("2_jlo27")
+btn_reset = NodePath("Main/Reset")
+btn_back = NodePath("Main/Back")
+conf_reset = NodePath("Confirm/Confirmer/TextureRect/VBoxContainer/HBoxContainer/Confirm")
+cncl_reset = NodePath("Confirm/Confirmer/TextureRect/VBoxContainer/HBoxContainer/Cancel")
+
+[node name="UIAnimator" parent="." node_paths=PackedStringArray("target") instance=ExtResource("3_nqeax")]
+target = NodePath("../Main/MenuPanel2")
+
+[node name="UIAnimator2" parent="." node_paths=PackedStringArray("target") instance=ExtResource("3_nqeax")]
+target = NodePath("../Confirm/Confirmer")
+
+[node name="Main" type="CanvasLayer" parent="."]
+layer = 3
+
+[node name="MenuPanel2" type="TextureRect" parent="Main"]
+self_modulate = Color(0, 0, 0, 1)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -497.0
+offset_top = -332.0
+offset_right = 592.0
+offset_bottom = 341.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.937372, 0.937372)
+texture = ExtResource("1_1v5f0")
+expand_mode = 1
+
+[node name="MenuPanel4" type="TextureRect" parent="Main/MenuPanel2"]
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -514.5
+offset_top = -420.5
+offset_right = 514.5
+offset_bottom = 245.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_1v5f0")
+expand_mode = 1
+
+[node name="MenuPanel5" type="TextureRect" parent="Main/MenuPanel2"]
+self_modulate = Color(0.95317, 0.912697, 0.723421, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -506.5
+offset_top = -425.0
+offset_right = 445.5
+offset_bottom = 242.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.06446, 1.06446)
+texture = ExtResource("1_1v5f0")
+expand_mode = 1
+
+[node name="MenuPanel" type="TextureRect" parent="Main/MenuPanel2"]
+self_modulate = Color(0.95317, 0.912697, 0.723421, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -536.5
+offset_top = -329.5
+offset_right = 536.5
+offset_bottom = 331.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_1v5f0")
+expand_mode = 1
+
+[node name="Panel" type="Panel" parent="Main/MenuPanel2/MenuPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -243.5
+offset_top = -177.5
+offset_right = 244.5
+offset_bottom = 242.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ukcll")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Main/MenuPanel2/MenuPanel/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 3.0
+offset_right = -10.0
+offset_bottom = -3.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_t4xlv")
+
+[node name="AchievementList" type="VBoxContainer" parent="Main/MenuPanel2/MenuPanel/Panel/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("2_t4xlv")
+
+[node name="Achievements" type="Label" parent="Main/MenuPanel2"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -247.0
+offset_top = 40.0
+offset_right = 246.0
+offset_bottom = 147.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.519636, 0.484062, 0.328357, 1)
+theme_override_fonts/font = ExtResource("2_ycqaj")
+theme_override_font_sizes/font_size = 94
+text = "Achievements"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Achievements2" type="Label" parent="Main/MenuPanel2"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -87.5
+offset_top = 615.551
+offset_right = 87.5
+offset_bottom = 640.551
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.519636, 0.484062, 0.328357, 1)
+theme_override_fonts/font = ExtResource("2_ycqaj")
+theme_override_font_sizes/font_size = 24
+text = "Scroll to see more"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Reset" type="Button" parent="Main"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 319.0
+offset_top = -88.0
+offset_right = 548.0
+offset_bottom = -39.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("2_ycqaj")
+theme_override_font_sizes/font_size = 35
+theme_override_styles/hover = SubResource("StyleBoxFlat_cg23g")
+theme_override_styles/normal = SubResource("StyleBoxFlat_t4xlv")
+text = "Reset Progress"
+
+[node name="Back" type="Button" parent="Main"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -515.0
+offset_top = -88.0
+offset_right = -312.0
+offset_bottom = -39.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("2_ycqaj")
+theme_override_font_sizes/font_size = 35
+theme_override_styles/hover = SubResource("StyleBoxFlat_cg23g")
+theme_override_styles/normal = SubResource("StyleBoxFlat_t4xlv")
+text = "Back"
+
+[node name="Confirm" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="Confirmer" type="TextureRect" parent="Confirm"]
+self_modulate = Color(0, 0, 0, 1)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -475.0
+offset_top = -346.0
+offset_right = 474.0
+offset_bottom = 202.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_1v5f0")
+expand_mode = 1
+
+[node name="TextureRect" type="TextureRect" parent="Confirm/Confirmer"]
+self_modulate = Color(0.952941, 0.913725, 0.721569, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 6.0
+offset_right = -7.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_1v5f0")
+expand_mode = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Confirm/Confirmer/TextureRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 232.0
+offset_top = 126.0
+offset_right = -232.0
+offset_bottom = -60.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 82
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Confirm/Confirmer/TextureRect/VBoxContainer"]
+layout_mode = 2
+
+[node name="Conflbl" type="Label" parent="Confirm/Confirmer/TextureRect/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47451, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_ycqaj")
+theme_override_font_sizes/font_size = 64
+text = "Are you sure?"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Conflbl2" type="Label" parent="Confirm/Confirmer/TextureRect/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.179748, 0.162416, 0.0948388, 1)
+theme_override_fonts/font = ExtResource("2_ycqaj")
+theme_override_font_sizes/font_size = 29
+text = "You will lose all your progress!"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Confirm/Confirmer/TextureRect/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 39
+alignment = 1
+
+[node name="Cancel" type="Button" parent="Confirm/Confirmer/TextureRect/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("2_ycqaj")
+theme_override_font_sizes/font_size = 46
+theme_override_styles/hover = SubResource("StyleBoxFlat_nqeax")
+theme_override_styles/normal = SubResource("StyleBoxFlat_k1632")
+text = " Cancel "
+
+[node name="Confirm" type="Button" parent="Confirm/Confirmer/TextureRect/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("2_ycqaj")
+theme_override_font_sizes/font_size = 46
+theme_override_styles/hover = SubResource("StyleBoxFlat_nqeax")
+theme_override_styles/normal = SubResource("StyleBoxFlat_k1632")
+text = "  Reset  "
+
+[node name="AudioManagerCaller" parent="." node_paths=PackedStringArray("sound_buttons") instance=ExtResource("7_k1632")]
+sound_buttons = [NodePath("../Main/Reset"), NodePath("../Main/Back")]
+
+[connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]

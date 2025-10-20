@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="AchievementData" load_steps=3 format=3 uid="uid://rcei7drogbgc"]
+
+[ext_resource type="Texture2D" uid="uid://qsqx3ehpfcvt" path="res://assets/bugs/004.png" id="1_huc4v"]
+[ext_resource type="Script" uid="uid://cnopd6vm5u7xw" path="res://resources/resource scripts/stages_passed.gd" id="2_m0a57"]
+
+[resource]
+script = ExtResource("2_m0a57")
+id = "hundred_bugs"
+title = "A Bug and Beyond."
+description = "Collect a hundred bugs, you must really like bugs."
+unlocked = false
+icon = ExtResource("1_huc4v")
+progressive = true
+required_amount = 100
+metadata/_custom_type_script = "uid://cnopd6vm5u7xw"

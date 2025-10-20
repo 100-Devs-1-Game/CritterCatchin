@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="AchievementData" load_steps=3 format=3 uid="uid://2chuiyybbibg"]
+
+[ext_resource type="Texture2D" uid="uid://qsqx3ehpfcvt" path="res://assets/bugs/004.png" id="1_x3fgp"]
+[ext_resource type="Script" uid="uid://cnopd6vm5u7xw" path="res://resources/resource scripts/stages_passed.gd" id="2_6rliy"]
+
+[resource]
+script = ExtResource("2_6rliy")
+id = "fifty_bugs"
+title = "Catcher of Bugs."
+description = "Catch fifty bugs."
+unlocked = false
+icon = ExtResource("1_x3fgp")
+progressive = true
+required_amount = 50
+metadata/_custom_type_script = "uid://cnopd6vm5u7xw"

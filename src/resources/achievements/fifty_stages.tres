@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="AchievementData" load_steps=3 format=3 uid="uid://di31ywunodhgg"]
+
+[ext_resource type="Texture2D" uid="uid://dr3l3uc7guhop" path="res://assets/other/009.png" id="1_r3v6u"]
+[ext_resource type="Script" uid="uid://cnopd6vm5u7xw" path="res://resources/resource scripts/stages_passed.gd" id="2_h4hdd"]
+
+[resource]
+script = ExtResource("2_h4hdd")
+id = "fifty_stages"
+title = "Watchful eyes"
+description = "Complete fifty stages in one run. You know a bug when you see one."
+unlocked = false
+icon = ExtResource("1_r3v6u")
+progressive = true
+required_amount = 50
+metadata/_custom_type_script = "uid://cnopd6vm5u7xw"
