@@ -1,0 +1,125 @@
+[gd_scene load_steps=8 format=3 uid="uid://r3ml7vndr3p0"]
+
+[ext_resource type="Script" uid="uid://cxn6ln65b5w3q" path="res://components/achievements/achievement_template.gd" id="1_72mev"]
+[ext_resource type="FontFile" uid="uid://sja5jpfqrgol" path="res://fonts/PixelGame-R9AZe.otf" id="1_hb0nm"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_72mev"]
+bg_color = Color(0.911668, 0.848308, 0.544814, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(0.840838, 0.766159, 0.40673, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i0dew"]
+bg_color = Color(0.500579, 0.833351, 0.369438, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_i0dew"]
+
+[sub_resource type="Gradient" id="Gradient_72mev"]
+offsets = PackedFloat32Array(0, 0.62069, 0.697318)
+colors = PackedColorArray(0.430007, 0.672711, 0.253218, 1, 0.430007, 0.672711, 0.253218, 1, 0.39666, 0.622065, 0.232696, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_i0dew"]
+gradient = SubResource("Gradient_72mev")
+fill_to = Vector2(0, 1)
+
+[node name="AchievementTemplate" type="Panel" node_paths=PackedStringArray("icon_tex", "title_label", "desc_label", "progress")]
+z_index = 3
+custom_minimum_size = Vector2(469, 99.17)
+theme_override_styles/panel = SubResource("StyleBoxFlat_72mev")
+script = ExtResource("1_72mev")
+icon_tex = NodePath("HBoxContainer/Panel/AchIcon")
+title_label = NodePath("HBoxContainer/VBoxContainer/Panel/Achtitle")
+desc_label = NodePath("HBoxContainer/VBoxContainer/Achtitle2")
+progress = NodePath("HBoxContainer/VBoxContainer/Panel/TextureProgressBar")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 5.0
+offset_right = -4.0
+offset_bottom = -8.515
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="HBoxContainer"]
+custom_minimum_size = Vector2(88, 88)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_i0dew")
+
+[node name="AchIcon" type="TextureRect" parent="HBoxContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 7.0
+offset_top = 7.0
+offset_right = -7.0
+offset_bottom = -7.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("PlaceholderTexture2D_i0dew")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(347.55, 28.86)
+layout_mode = 2
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="HBoxContainer/VBoxContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+value = 60.0
+nine_patch_stretch = true
+texture_progress = SubResource("GradientTexture2D_i0dew")
+
+[node name="Achtitle" type="Label" parent="HBoxContainer/VBoxContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -2.0
+offset_bottom = 2.75
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.952941, 0.913725, 0.721569, 1)
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("1_hb0nm")
+theme_override_font_sizes/font_size = 33
+text = "Achievement Title"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Achtitle2" type="Label" parent="HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 51)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.952941, 0.913725, 0.721569, 1)
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("1_hb0nm")
+theme_override_font_sizes/font_size = 21
+text = "This is the achievement description, good job on getting this achievement."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3

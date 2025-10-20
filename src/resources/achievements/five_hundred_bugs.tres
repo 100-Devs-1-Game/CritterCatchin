@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="AchievementData" load_steps=3 format=3 uid="uid://5rfmu7t8okhk"]
+
+[ext_resource type="Texture2D" uid="uid://cqal53clskud1" path="res://assets/bugs/008.png" id="1_w7tso"]
+[ext_resource type="Script" uid="uid://cnopd6vm5u7xw" path="res://resources/resource scripts/stages_passed.gd" id="2_3n1n4"]
+
+[resource]
+script = ExtResource("2_3n1n4")
+id = "five_hundred_bugs"
+title = "Catch 'em all!"
+description = "Five hundred bugs. Is it a blessing or a curse?"
+unlocked = false
+icon = ExtResource("1_w7tso")
+progressive = true
+required_amount = 500
+metadata/_custom_type_script = "uid://cnopd6vm5u7xw"

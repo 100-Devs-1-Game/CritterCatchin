@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="AchievementData" load_steps=3 format=3 uid="uid://bby6xriwfbocr"]
+
+[ext_resource type="Texture2D" uid="uid://bjb1tngrp1l2i" path="res://assets/other/003.png" id="1_et8ju"]
+[ext_resource type="Script" uid="uid://cnopd6vm5u7xw" path="res://resources/resource scripts/stages_passed.gd" id="2_4rnjd"]
+
+[resource]
+script = ExtResource("2_4rnjd")
+id = "ten_stages"
+title = "Good eyes!"
+description = "Complete ten stages in one run."
+unlocked = false
+icon = ExtResource("1_et8ju")
+progressive = true
+required_amount = 10
+metadata/_custom_type_script = "uid://cnopd6vm5u7xw"

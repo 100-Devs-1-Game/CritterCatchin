@@ -1,50 +1,40 @@
-[gd_scene load_steps=9 format=3 uid="uid://dhomc0baadras"]
+[gd_scene load_steps=12 format=3 uid="uid://dhomc0baadras"]
 
 [ext_resource type="Script" uid="uid://bjobet7d102wt" path="res://components/interface/pause/paused.gd" id="1_ql2ti"]
 [ext_resource type="FontFile" uid="uid://sja5jpfqrgol" path="res://fonts/PixelGame-R9AZe.otf" id="1_r5k1g"]
+[ext_resource type="Shader" uid="uid://bl4sriq5hxhq8" path="res://shaders/paused.gdshader" id="2_pgr4k"]
+[ext_resource type="Texture2D" uid="uid://dvjc1oyfsudik" path="res://assets/white_board.png" id="2_ql2ti"]
+[ext_resource type="PackedScene" uid="uid://ddevy2x07x17c" path="res://components/AudioCaller/audio_manager_caller.tscn" id="3_aqujp"]
+[ext_resource type="PackedScene" uid="uid://dn0e3a1tercx6" path="res://components/interface/animator/ui_animator.tscn" id="5_q2oj0"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r5k1g"]
-bg_color = Color(0, 0, 0, 1)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_q2oj0"]
+shader = ExtResource("2_pgr4k")
+shader_parameter/lod = 3.772
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aqujp"]
-bg_color = Color(0.995237, 0.78416, 0.515934, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rk725"]
+bg_color = Color(0, 0, 0, 0.580392)
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ql2ti"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pgr4k"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q2oj0"]
-bg_color = Color(0.802871, 0.533483, 0.0790369, 1)
-border_width_left = 5
-border_width_top = 5
-border_color = Color(0.564706, 0.360784, 0.0862745, 1)
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
-shadow_size = 10
+bg_color = Color(0.752694, 0.492277, 0.176421, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_detail = 6
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ql2ti"]
-bg_color = Color(0.802871, 0.533483, 0.0790369, 1)
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(0.564706, 0.360784, 0.0862745, 1)
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
-shadow_size = 10
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aqujp"]
+bg_color = Color(0.568627, 0.364706, 0.113725, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_detail = 6
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pgr4k"]
-bg_color = Color(0.654902, 0.431373, 0.0509804, 1)
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(0.564706, 0.360784, 0.0862745, 1)
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
-shadow_size = 10
-
-[node name="Paused" type="Control"]
+[node name="Paused" type="Control" node_paths=PackedStringArray("hide_panel")]
 process_mode = 3
 z_index = 6
 layout_mode = 3
@@ -54,93 +44,150 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ql2ti")
+hide_panel = NodePath("TextureRect2")
 
-[node name="ColorRect" type="Panel" parent="."]
+[node name="UIAnimator" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_q2oj0")]
+_override_position_y = 51.15
+target = NodePath("../TextureRect2")
+override_starting_position = true
+
+[node name="AudioManagerCaller" parent="." node_paths=PackedStringArray("sound_buttons") instance=ExtResource("3_aqujp")]
+sound_buttons = [NodePath("../TextureRect2/TextureRect/VBoxContainer/resume"), NodePath("../TextureRect2/TextureRect/VBoxContainer/settings"), NodePath("../TextureRect2/TextureRect/VBoxContainer/quit")]
+
+[node name="Blur" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_q2oj0")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 100.0
-offset_bottom = -100.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_r5k1g")
 
-[node name="PausePanel" type="Panel" parent="."]
+[node name="Panel" type="Panel" parent="Blur"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -225.0
-offset_top = -201.0
-offset_right = 227.0
-offset_bottom = 175.0
+offset_left = -315.0
+offset_top = -324.0
+offset_right = 315.0
+offset_bottom = 324.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_aqujp")
+theme_override_styles/panel = SubResource("StyleBoxFlat_rk725")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PausePanel"]
+[node name="TextureRect2" type="TextureRect" parent="."]
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -395.0
+offset_top = -290.0
+offset_right = 395.0
+offset_bottom = 146.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_ql2ti")
+expand_mode = 1
+
+[node name="TextureRect" type="TextureRect" parent="TextureRect2"]
+self_modulate = Color(0.952941, 0.913725, 0.721569, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -389.0
+offset_top = -214.0
+offset_right = 389.0
+offset_bottom = 214.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_ql2ti")
+expand_mode = 1
+
+[node name="Achievements" type="Label" parent="TextureRect2/TextureRect"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -204.0
+offset_top = 95.0
+offset_right = 203.0
+offset_bottom = 170.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.519636, 0.484062, 0.328357, 1)
+theme_override_fonts/font = ExtResource("1_r5k1g")
+theme_override_font_sizes/font_size = 73
+text = "GAME PAUSED"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TextureRect2/TextureRect"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 41.0
-offset_right = -41.0
+offset_left = 245.0
+offset_top = 175.0
+offset_right = -245.0
+offset_bottom = -61.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 16
 alignment = 1
 
-[node name="Resume" type="Button" parent="PausePanel/VBoxContainer"]
+[node name="resume" type="Button" parent="TextureRect2/TextureRect/VBoxContainer"]
 layout_mode = 2
-theme_override_colors/font_hover_color = Color(0.921569, 0.701961, 0.458824, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0.519636, 0.484062, 0.328357, 1)
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 7
 theme_override_fonts/font = ExtResource("1_r5k1g")
-theme_override_font_sizes/font_size = 38
-theme_override_styles/focus = SubResource("StyleBoxEmpty_ql2ti")
-theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_q2oj0")
-theme_override_styles/hover = SubResource("StyleBoxFlat_ql2ti")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_q2oj0")
-theme_override_styles/normal = SubResource("StyleBoxFlat_pgr4k")
+theme_override_font_sizes/font_size = 34
+theme_override_styles/focus = SubResource("StyleBoxEmpty_pgr4k")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_pgr4k")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_pgr4k")
+theme_override_styles/hover = SubResource("StyleBoxFlat_q2oj0")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_pgr4k")
+theme_override_styles/normal = SubResource("StyleBoxFlat_aqujp")
 text = "Continue"
-autowrap_mode = 3
 
-[node name="Settings" type="Button" parent="PausePanel/VBoxContainer"]
+[node name="settings" type="Button" parent="TextureRect2/TextureRect/VBoxContainer"]
 layout_mode = 2
-theme_override_colors/font_hover_color = Color(0.921569, 0.701961, 0.458824, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0.519636, 0.484062, 0.328357, 1)
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 7
 theme_override_fonts/font = ExtResource("1_r5k1g")
-theme_override_font_sizes/font_size = 38
-theme_override_styles/focus = SubResource("StyleBoxEmpty_ql2ti")
-theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_q2oj0")
-theme_override_styles/hover = SubResource("StyleBoxFlat_ql2ti")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_q2oj0")
-theme_override_styles/normal = SubResource("StyleBoxFlat_pgr4k")
+theme_override_font_sizes/font_size = 34
+theme_override_styles/focus = SubResource("StyleBoxEmpty_pgr4k")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_pgr4k")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_pgr4k")
+theme_override_styles/hover = SubResource("StyleBoxFlat_q2oj0")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_pgr4k")
+theme_override_styles/normal = SubResource("StyleBoxFlat_aqujp")
 text = "Settings"
-autowrap_mode = 3
 
-[node name="Exit" type="Button" parent="PausePanel/VBoxContainer"]
+[node name="quit" type="Button" parent="TextureRect2/TextureRect/VBoxContainer"]
 layout_mode = 2
-theme_override_colors/font_hover_color = Color(0.921569, 0.701961, 0.458824, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0.519636, 0.484062, 0.328357, 1)
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 7
 theme_override_fonts/font = ExtResource("1_r5k1g")
-theme_override_font_sizes/font_size = 38
-theme_override_styles/focus = SubResource("StyleBoxEmpty_ql2ti")
-theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_q2oj0")
-theme_override_styles/hover = SubResource("StyleBoxFlat_ql2ti")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_q2oj0")
-theme_override_styles/normal = SubResource("StyleBoxFlat_pgr4k")
-text = "Quit"
-autowrap_mode = 3
+theme_override_font_sizes/font_size = 34
+theme_override_styles/focus = SubResource("StyleBoxEmpty_pgr4k")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_pgr4k")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_pgr4k")
+theme_override_styles/hover = SubResource("StyleBoxFlat_q2oj0")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_pgr4k")
+theme_override_styles/normal = SubResource("StyleBoxFlat_aqujp")
+text = "Exit Game"
 
-[connection signal="pressed" from="PausePanel/VBoxContainer/Resume" to="." method="_resume"]
-[connection signal="pressed" from="PausePanel/VBoxContainer/Settings" to="." method="_settings"]
-[connection signal="pressed" from="PausePanel/VBoxContainer/Exit" to="." method="_exit"]
+[connection signal="pressed" from="TextureRect2/TextureRect/VBoxContainer/resume" to="." method="_resume"]
+[connection signal="pressed" from="TextureRect2/TextureRect/VBoxContainer/settings" to="." method="_settings"]
+[connection signal="pressed" from="TextureRect2/TextureRect/VBoxContainer/quit" to="." method="_exit"]

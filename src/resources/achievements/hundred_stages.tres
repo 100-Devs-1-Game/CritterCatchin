@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="AchievementData" load_steps=3 format=3 uid="uid://bwvbf6a8wbrud"]
+
+[ext_resource type="Texture2D" uid="uid://b0uvgo3sa123e" path="res://assets/other/001.png" id="1_mskq2"]
+[ext_resource type="Script" uid="uid://cnopd6vm5u7xw" path="res://resources/resource scripts/stages_passed.gd" id="2_er7fq"]
+
+[resource]
+script = ExtResource("2_er7fq")
+id = "hundred_stages"
+title = "One hundred stages!"
+description = "Complete one hundred stages in one run."
+unlocked = false
+icon = ExtResource("1_mskq2")
+progressive = true
+required_amount = 100
+metadata/_custom_type_script = "uid://cnopd6vm5u7xw"

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="AchievementData" load_steps=3 format=3 uid="uid://yxc0ndt54i4b"]
+
+[ext_resource type="Texture2D" uid="uid://odkhq0lndhdn" path="res://assets/other/005.png" id="1_78lwg"]
+[ext_resource type="Script" uid="uid://cnopd6vm5u7xw" path="res://resources/resource scripts/stages_passed.gd" id="2_1cgy7"]
+
+[resource]
+script = ExtResource("2_1cgy7")
+id = "twenty_stages"
+title = "And so we continue."
+description = "Complete twenty stages in one run. You're doing great!"
+unlocked = false
+icon = ExtResource("1_78lwg")
+progressive = true
+required_amount = 20
+metadata/_custom_type_script = "uid://cnopd6vm5u7xw"

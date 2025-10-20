@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="AchievementData" load_steps=3 format=3 uid="uid://6amifjoqp08m"]
+
+[ext_resource type="Texture2D" uid="uid://c06muaatx3k2j" path="res://assets/other/007.png" id="1_t456j"]
+[ext_resource type="Script" uid="uid://cnopd6vm5u7xw" path="res://resources/resource scripts/stages_passed.gd" id="2_05v25"]
+
+[resource]
+script = ExtResource("2_05v25")
+id = "five_hundred_stages"
+title = "Overachiever"
+description = "You completed over 500 stages in one run."
+unlocked = false
+icon = ExtResource("1_t456j")
+progressive = true
+required_amount = 500
+metadata/_custom_type_script = "uid://cnopd6vm5u7xw"

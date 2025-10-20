@@ -14,6 +14,7 @@ func play_sound(sound) -> void:
 	_send_to_root(p)
 	p.volume_db = -14.0
 	p.call_deferred("play")
+	p.bus = "SFX"
 	p.finished.connect(func(): p.queue_free())
 
 

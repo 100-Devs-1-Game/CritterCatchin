@@ -10,8 +10,8 @@ const LILGUY = preload("res://components/traveling entity/lilguy.tscn")
 var lilguys: Array = []
 var special_lilguy: Node2D = null
 
-var stage_entity_amount: int = 30
-@export var stage_speed_ramp: float = 7.0
+var stage_entity_amount: int = 10
+@export var stage_speed_ramp: float = 0.5
 @export var stage_entity_ramp: int = 3
 @export var for_title: bool = false
 
@@ -34,24 +34,54 @@ func _ready() -> void:
 	Eventbus.level_ended.connect(_clear_lilguys)
 
 ## Loads all png files from a given folder into the target array
-func _load_textures_from_folder(path: String, target_array: Array) -> void:
+func _load_textures_from_folder(path: String, target_array: Array) -> int:
+	if not path.ends_with("/"):
+		path += "/"
+
 	var dir = DirAccess.open(path)
 	if not dir:
 		push_warning("Could not open folder: " + path)
-		return
+		return 0
+
 	dir.list_dir_begin()
-	var file_name = dir.get_next()
+	var file_name: String = dir.get_next()
+	var loaded_count: int = 0
+
 	while file_name != "":
-		if not dir.current_is_dir() and file_name.ends_with(".png"):
-			var full_path = path + file_name
-			if ResourceLoader.exists(full_path, "Texture2D"):
-				var tex = load(full_path)
-				if tex:
-					target_array.append(tex)
-				else:
-					push_warning("Failed to load texture: " + full_path)
+		if file_name == "." or file_name == "..":
+			file_name = dir.get_next()
+			continue
+
+		if dir.current_is_dir():
+			file_name = dir.get_next()
+			continue
+
+		var lower = file_name.to_lower()
+
+		var check_name: String = ""
+		if lower.ends_with(".png"):
+			check_name = file_name
+		elif lower.ends_with(".png.import"):
+			check_name = file_name.substr(0, file_name.length() - ".import".length())
+		else:
+			print_debug("Skipping non-png file: " + file_name)
+			file_name = dir.get_next()
+			continue
+
+		var full_path = path + check_name
+
+		var tex = ResourceLoader.load(full_path)
+		if tex and tex is Texture2D:
+			target_array.append(tex)
+			loaded_count += 1
+		else:
+			push_warning("Could not load texture at: %s (load returned: %s)" % [full_path, str(tex)])
+
 		file_name = dir.get_next()
+
 	dir.list_dir_end()
+	print("Loaded %d textures from %s" % [loaded_count, path])
+	return loaded_count
 
 ## Reserves a texture for the special bug, creates the other bugs and the special bug.
 func start_level(level: int) -> void:
@@ -115,6 +145,7 @@ func _spawn_special_lilguy(difficulty: int) -> void:
 		randf_range(rect_pos.y, rect_pos.y + rect_size.y)
 	)
 	add_child(special_lilguy)
+	special_lilguy.can_click = true
 	special_lilguy.z_index = -1
 
 	if special_texture and special_lilguy.has_node("Sprite2D"):

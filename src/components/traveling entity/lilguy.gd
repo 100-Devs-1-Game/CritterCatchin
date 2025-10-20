@@ -9,6 +9,7 @@ var capturing_bug: bool = false
 var target_pos: Vector2
 
 var target: bool = false
+var can_click: bool = false
 
 const CATCH_HANDLER = preload("res://components/catch handler/catch_handler.tscn")
 

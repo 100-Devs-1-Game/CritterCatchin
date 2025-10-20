@@ -1,12 +1,23 @@
-[gd_scene load_steps=7 format=3 uid="uid://dw0ot6y0cgfwp"]
+[gd_scene load_steps=10 format=3 uid="uid://dw0ot6y0cgfwp"]
 
 [ext_resource type="Script" uid="uid://myirocx08un3" path="res://components/interface/settings/settings.gd" id="1_myjhl"]
 [ext_resource type="Texture2D" uid="uid://dvjc1oyfsudik" path="res://assets/white_board.png" id="2_1gl4y"]
 [ext_resource type="FontFile" uid="uid://sja5jpfqrgol" path="res://fonts/PixelGame-R9AZe.otf" id="2_ah5j4"]
 [ext_resource type="Theme" uid="uid://c23fe0nle1t5f" path="res://components/interface/theme/UITheme.tres" id="2_rdrrm"]
+[ext_resource type="PackedScene" uid="uid://dn0e3a1tercx6" path="res://components/interface/animator/ui_animator.tscn" id="5_8bcv8"]
+[ext_resource type="PackedScene" uid="uid://ddevy2x07x17c" path="res://components/AudioCaller/audio_manager_caller.tscn" id="6_dq4qv"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8bcv8"]
 bg_color = Color(0, 0, 0, 0.160784)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cg23g"]
+bg_color = Color(0.568627, 0.364706, 0.113725, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_detail = 6
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5g3qv"]
 bg_color = Color(0.952941, 0.913725, 0.721569, 1)
@@ -16,7 +27,7 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0, 0, 0, 1)
 
-[node name="Settings" type="Control" node_paths=PackedStringArray("window_mode", "master_slider", "sfx_slider", "music_slider", "exit_button")]
+[node name="Settings" type="Control" node_paths=PackedStringArray("window_mode", "flashing_enabler", "custom_cursor", "animate_ui", "master_slider", "sfx_slider", "music_slider", "exit_button")]
 process_mode = 3
 z_index = 7
 layout_mode = 3
@@ -27,6 +38,9 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_myjhl")
 window_mode = NodePath("CanvasLayer/MenuPanel6/MenuPanel5/Panel/SettingVBox/VBoxContainer/Fullscreen")
+flashing_enabler = NodePath("CanvasLayer/MenuPanel6/MenuPanel5/Panel/SettingVBox/VBoxContainer/Flashing")
+custom_cursor = NodePath("CanvasLayer/MenuPanel6/MenuPanel5/Panel/SettingVBox/VBoxContainer/Cursor")
+animate_ui = NodePath("CanvasLayer/MenuPanel6/MenuPanel5/Panel/SettingVBox/VBoxContainer/UIMovement")
 master_slider = NodePath("CanvasLayer/MenuPanel6/MenuPanel5/Panel2/SettingVBox2/MasterVolume/Master")
 sfx_slider = NodePath("CanvasLayer/MenuPanel6/MenuPanel5/Panel2/SettingVBox2/SFXVolume/SFX")
 music_slider = NodePath("CanvasLayer/MenuPanel6/MenuPanel5/Panel2/SettingVBox2/MusicVolume/Music")
@@ -95,7 +109,7 @@ offset_left = 44.0
 offset_right = -44.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 85
+theme_override_constants/separation = 38
 
 [node name="Video" type="Label" parent="CanvasLayer/MenuPanel6/MenuPanel5/Panel/SettingVBox"]
 layout_mode = 2
@@ -112,17 +126,44 @@ layout_mode = 2
 layout_mode = 2
 focus_mode = 0
 theme = ExtResource("2_rdrrm")
+theme_override_colors/font_color = Color(0.521569, 0.482353, 0.329412, 1)
+theme_override_colors/font_pressed_color = Color(0.521569, 0.482353, 0.329412, 1)
 theme_override_fonts/font = ExtResource("2_ah5j4")
 theme_override_font_sizes/font_size = 36
 text = "Fullscreen mode"
 
-[node name="Disable" type="CheckBox" parent="CanvasLayer/MenuPanel6/MenuPanel5/Panel/SettingVBox/VBoxContainer"]
+[node name="Cursor" type="CheckBox" parent="CanvasLayer/MenuPanel6/MenuPanel5/Panel/SettingVBox/VBoxContainer"]
 layout_mode = 2
 focus_mode = 0
 theme = ExtResource("2_rdrrm")
+theme_override_colors/font_color = Color(0.521569, 0.482353, 0.329412, 1)
+theme_override_colors/font_pressed_color = Color(0.521569, 0.482353, 0.329412, 1)
 theme_override_fonts/font = ExtResource("2_ah5j4")
 theme_override_font_sizes/font_size = 36
+button_pressed = true
 text = "Custom Cursor"
+
+[node name="Flashing" type="CheckBox" parent="CanvasLayer/MenuPanel6/MenuPanel5/Panel/SettingVBox/VBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+theme = ExtResource("2_rdrrm")
+theme_override_colors/font_color = Color(0.521569, 0.482353, 0.329412, 1)
+theme_override_colors/font_pressed_color = Color(0.521569, 0.482353, 0.329412, 1)
+theme_override_fonts/font = ExtResource("2_ah5j4")
+theme_override_font_sizes/font_size = 36
+button_pressed = true
+text = "Flashing Lights"
+
+[node name="UIMovement" type="CheckBox" parent="CanvasLayer/MenuPanel6/MenuPanel5/Panel/SettingVBox/VBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+theme = ExtResource("2_rdrrm")
+theme_override_colors/font_color = Color(0.521569, 0.482353, 0.329412, 1)
+theme_override_colors/font_pressed_color = Color(0.521569, 0.482353, 0.329412, 1)
+theme_override_fonts/font = ExtResource("2_ah5j4")
+theme_override_font_sizes/font_size = 36
+button_pressed = true
+text = " UI Animations"
 
 [node name="Panel2" type="Panel" parent="CanvasLayer/MenuPanel6/MenuPanel5"]
 layout_mode = 1
@@ -219,7 +260,16 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 8
 theme_override_fonts/font = ExtResource("2_ah5j4")
 theme_override_font_sizes/font_size = 35
+theme_override_styles/hover = SubResource("StyleBoxFlat_cg23g")
 theme_override_styles/normal = SubResource("StyleBoxFlat_5g3qv")
 text = "Back"
 
-[connection signal="child_exiting_tree" from="." to="." method="_on_child_exiting_tree"]
+[node name="UIAnimator" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_8bcv8")]
+target = NodePath("../CanvasLayer/MenuPanel6")
+override_starting_position = true
+
+[node name="AudioManagerCaller" parent="." node_paths=PackedStringArray("sound_buttons", "sound_sliders") instance=ExtResource("6_dq4qv")]
+sound_buttons = [NodePath("../CanvasLayer/Close"), NodePath("../CanvasLayer/MenuPanel6/MenuPanel5/Panel/SettingVBox/VBoxContainer/Fullscreen"), NodePath("../CanvasLayer/MenuPanel6/MenuPanel5/Panel/SettingVBox/VBoxContainer/Cursor"), NodePath("../CanvasLayer/MenuPanel6/MenuPanel5/Panel/SettingVBox/VBoxContainer/Flashing"), NodePath("../CanvasLayer/MenuPanel6/MenuPanel5/Panel/SettingVBox/VBoxContainer/UIMovement")]
+sound_sliders = [NodePath("../CanvasLayer/MenuPanel6/MenuPanel5/Panel2/SettingVBox2/MasterVolume/Master"), NodePath("../CanvasLayer/MenuPanel6/MenuPanel5/Panel2/SettingVBox2/SFXVolume/SFX"), NodePath("../CanvasLayer/MenuPanel6/MenuPanel5/Panel2/SettingVBox2/MusicVolume/Music")]
+
+[connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]

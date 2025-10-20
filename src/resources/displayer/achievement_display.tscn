@@ -1,0 +1,142 @@
+[gd_scene load_steps=7 format=3 uid="uid://sf1vi6xmvdbo"]
+
+[ext_resource type="Script" uid="uid://deaikt4lxggyg" path="res://resources/displayer/achievement_display.gd" id="1_1quya"]
+[ext_resource type="FontFile" uid="uid://sja5jpfqrgol" path="res://fonts/PixelGame-R9AZe.otf" id="2_0ydhy"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1quya"]
+bg_color = Color(1, 1, 0.768627, 1)
+border_width_left = 4
+border_width_top = 2
+border_width_bottom = 7
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 13
+corner_radius_bottom_left = 13
+
+[sub_resource type="Animation" id="Animation_0ydhy"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Panel:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1301, 28)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Panel/Control:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 3)]
+}
+
+[sub_resource type="Animation" id="Animation_1quya"]
+resource_name = "display"
+length = 5.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Panel:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.175676, 0.366667, 4.6, 4.79099, 5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1301, 28), Vector2(812, 28), Vector2(812, 28), Vector2(812, 28), Vector2(812, 28), Vector2(1301, 28)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Panel/Control:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.166667, 0.8, 1.43712, 1.86393, 2.22051, 2.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 3), Vector2(0, 3), Vector2(0, 3), Vector2(0, 3), Vector2(0, 3), Vector2(0, -45), Vector2(0, -45)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qdp6p"]
+_data = {
+&"RESET": SubResource("Animation_0ydhy"),
+&"display": SubResource("Animation_1quya")
+}
+
+[node name="AchievementDisplay" type="CanvasLayer"]
+script = ExtResource("1_1quya")
+
+[node name="Panel" type="Panel" parent="."]
+clip_contents = true
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = 149.0
+offset_top = 28.0
+offset_right = 638.0
+offset_bottom = 76.0
+grow_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_1quya")
+
+[node name="Control" type="Control" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 3.0
+offset_right = -150.0
+offset_bottom = 3.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="UnlockLbl" type="Label" parent="Panel/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -4.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 0.796078, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("2_0ydhy")
+theme_override_font_sizes/font_size = 25
+text = "You've Unlocked an achievement!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sec" type="Label" parent="Panel/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 44.0
+offset_bottom = 44.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 0.796078, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("2_0ydhy")
+theme_override_font_sizes/font_size = 28
+text = "View it from the Title!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Displayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_qdp6p")
+}
+autoplay = "display"
+
+[connection signal="animation_finished" from="Displayer" to="." method="_on_displayer_animation_finished"]

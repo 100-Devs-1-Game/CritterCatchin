@@ -4,37 +4,76 @@ extends Node2D
 @export var settings_button: BaseButton
 @export var leaderboard_button: BaseButton
 @export var quit_button: BaseButton
+@export var change_user: BaseButton
+@export var credits_button: BaseButton
+@export var achievement_button: BaseButton
 @export var menu_panel: TextureRect
+@export var username_entry: LineEdit
+@export var info_text: Label
 
-const UI_HOVER = preload("res://audio/pop.mp3")
 const LEADERBOARD = preload("res://components/interface/leaderboard/leaderboard.tscn")
+const CREDITS = preload("res://components/interface/credits/credits.tscn")
+const ACHIEVEMENTS = preload("res://components/interface/achievements/achievements.tscn")
+const NOTIFIER = preload("res://components/interface/notifier/notifier.tscn")
 
-var _time: float = 0.0
-var _panel_base_y: float = 0.0
-@export var bob_amplitude: float = 10.0
-@export var bob_speed: float = 2.0
 
 func _ready() -> void:
 	_connect_ui()
-	if menu_panel:
-		_panel_base_y = menu_panel.position.y
+	_check_name()
 	Eventbus.menu_closed.connect(_toggle_visual)
+	if OS.has_feature("web"):
+		quit_button.visible = false
 
 ## Toggles the title UI when called
 func _toggle_visual() -> void:
 	$CanvasLayer/Outline.visible = !$CanvasLayer/Outline.visible
+	$CanvasLayer/InfoCard.visible = $CanvasLayer/Outline.visible
+	$CanvasLayer/Discord.visible = $CanvasLayer/Outline.visible
 
 func _connect_ui() -> void:
 	play_button.pressed.connect(func(): Sceneloader.to_game())
 	settings_button.pressed.connect(func(): SettingsManager.display_settings_overlay(self) ; _toggle_visual())
-	leaderboard_button.pressed.connect(func(): _toggle_visual() ; var l = LEADERBOARD.instantiate() ; $CanvasLayer.add_child(l))
+	leaderboard_button.pressed.connect(request_open_leaderboard)
 	quit_button.pressed.connect(func(): SettingsManager.close_game())
+	change_user.pressed.connect(func(): SettingsManager.clear_username() ; _check_name())
+	credits_button.pressed.connect(func(): var l = CREDITS.instantiate() ; add_child(l) ; _toggle_visual())
+	achievement_button.pressed.connect(func(): var a = ACHIEVEMENTS.instantiate() ; add_child(a) ; _toggle_visual())
 
-	var buttons = [play_button, settings_button, leaderboard_button, quit_button]
-	for b in buttons:
-		b.mouse_entered.connect(func(): AudioManager.play_sound(UI_HOVER))
+func open_leaderboard() -> void:
+	_toggle_visual()
+	var l = LEADERBOARD.instantiate()
+	$CanvasLayer.call_deferred("add_child", l)
 
-func _process(delta: float) -> void:
-	if menu_panel:
-		_time += delta
-		menu_panel.position.y = _panel_base_y + sin(_time * bob_speed) * bob_amplitude
+func request_open_leaderboard() -> void:
+	if !SettingsManager.notified:
+		var n = NOTIFIER.instantiate()
+		$CanvasLayer.add_child(n)
+		var response = await Eventbus.warning_closed
+		if response == false:
+			return
+		else:
+			open_leaderboard()
+	else:
+		open_leaderboard()
+
+func _check_name() -> void:
+	if SettingsManager.has_username():
+		info_text.text = "Good luck and catch all those bugs, " + SettingsManager.get_username() + "!"
+		$CanvasLayer/InfoCard/ChangeUser.visible = true
+		$CanvasLayer/InfoCard/UsernameEntry.visible = false
+	else:
+		info_text.text = "Want to submit your scores to the leaderboard? Enter a name below!"
+		$CanvasLayer/InfoCard/ChangeUser.visible = false
+		$CanvasLayer/InfoCard/UsernameEntry.visible = true
+
+func _submit_username(username: String) -> void:
+	if username.length() < 1:
+		push_warning("Username must be at least 2 characters long.")
+		return
+	if username != "":
+		SettingsManager.set_username(username)
+		_check_name()
+	else:
+		push_warning("Username cannot be blank.")
+
+	$CanvasLayer/InfoCard/UsernameEntry.text = ""
