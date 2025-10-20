@@ -29,8 +29,9 @@ func _ready():
 	Eventbus.sound_request.connect(play_audio)
 	Eventbus.announce_unlock.connect(func(): var a = ACHIEVEMENT_DISPLAY.instantiate() ; add_child(a))
 	animated_leaves()
-	_start_level()
 
+	if SettingsManager.st_notified:
+		_start_level()
 
 func _process(delta):
 	if not game_running:
@@ -65,6 +66,10 @@ func _process(delta):
 
 
 func _start_level():
+	if $CanvasLayer.visible == false:
+		$CanvasLayer.visible = true
+	if $Explain.visible == true:
+		$Explain.visible = false
 	world.show_net()
 	current_stage += 1
 	game_running = true

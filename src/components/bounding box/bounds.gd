@@ -6,6 +6,7 @@ extends Node2D
 ## Redraws the drawn rectangle if true
 @export var update_realtime: bool = true
 @export var z_order: int = 100
+@export var display_in_engine: bool = true
 
 func _draw():
 	var top_left = -rect_size * 0.5

@@ -2,6 +2,7 @@ extends Node
 
 signal achievement_unlocked(id: StringName, data: AchievementData)
 signal achievement_progress(data: AchievementData, current: int, required: int)
+signal achievements_loaded
 
 const ACHIEVEMENTS_DIR = "res://resources/achievements/"
 const SAVE_PATH = "user://achievements.cfg"
@@ -19,6 +20,8 @@ func _ready() -> void:
 	_load_definitions()
 	_load_progress()
 	_apply_loaded_progress()
+
+	emit_signal("achievements_loaded")
 
 	if not is_connected("achievement_unlocked", Callable(self, "_on_achievement_unlocked")):
 		connect("achievement_unlocked", Callable(self, "_on_achievement_unlocked"))
@@ -125,7 +128,8 @@ func _load_definitions() -> void:
 func _apply_loaded_progress() -> void:
 	for id in _achievements_by_id.keys():
 		var data: AchievementData = _achievements_by_id[id]
-		data.unlocked = _unlocked_ids.has(id)
+		data.unlocked = _unlocked_ids.get(id)
+		print("Applied unlocked for ", id, "=", data.unlocked)
 		data.current_amount = int(_progress_by_id.get(id, 0))
 
 
@@ -157,7 +161,7 @@ func _save_progress() -> void:
 
 	if err != OK and err != ERR_FILE_NOT_FOUND:
 		push_warning("Couldn't load existing %s (code %d); writing fresh." % [SAVE_PATH, err])
-		cfg = ConfigFile.new() # fresh config if load fails
+		cfg = ConfigFile.new()
 
 	for id in _achievements_by_id.keys():
 		cfg.set_value(SAVE_SECTION, id, _unlocked_ids.has(id))
@@ -183,6 +187,7 @@ func reset_all() -> void:
 			data.current_amount = 0
 		data.unlocked = false
 	_save_progress()
+	emit_signal("achievements_loaded")
 
 
 func add_progress(id: String, amount: int) -> void:

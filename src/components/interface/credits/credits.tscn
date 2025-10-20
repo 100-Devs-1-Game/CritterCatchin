@@ -31,6 +31,7 @@ script = ExtResource("1_mlhjl")
 
 [node name="UIAnimator" parent="." node_paths=PackedStringArray("target") instance=ExtResource("4_4u5wf")]
 target = NodePath("../Credits/MenuPanel2")
+override_starting_position = true
 
 [node name="Credits" type="CanvasLayer" parent="."]
 

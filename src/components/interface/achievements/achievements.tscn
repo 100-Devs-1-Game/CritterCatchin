@@ -61,6 +61,7 @@ cncl_reset = NodePath("Confirm/Confirmer/TextureRect/VBoxContainer/HBoxContainer
 
 [node name="UIAnimator" parent="." node_paths=PackedStringArray("target") instance=ExtResource("3_nqeax")]
 target = NodePath("../Main/MenuPanel2")
+override_starting_position = true
 
 [node name="UIAnimator2" parent="." node_paths=PackedStringArray("target") instance=ExtResource("3_nqeax")]
 target = NodePath("../Confirm/Confirmer")

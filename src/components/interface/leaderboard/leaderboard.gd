@@ -33,25 +33,25 @@ func fetch_top_scores() -> void:
 
 	var response = await Talo.leaderboards.get_entries(leaderboard_name, options)
 
-	if response.entries.size() == 0:
-		return
+	if response:
+		if response.entries.size() == 0:
+			return
 
-	var first = response.entries[0]
-	first_place_label.text = "1. %s - %d" % [first.get_prop("name", "Unknown Player"), first.score]
-	first_place_label.visible = true
+		var first = response.entries[0]
+		first_place_label.text = "1. %s - %d" % [first.get_prop("name", "Unknown Player"), first.score]
+		first_place_label.visible = true
 
-	for i in range(1, response.entries.size()):
-		var entry = response.entries[i]
-		var label = label_template.duplicate() as Label
-		label.text = "%d. %s - %d" % [i + 1, entry.get_prop("name", "Unknown Player"), entry.score]
-		label.visible = true
-		label_container.add_child(label)
+		for i in range(1, response.entries.size()):
+			var entry = response.entries[i]
+			var label = label_template.duplicate() as Label
+			label.text = "%d. %s - %d" % [i + 1, entry.get_prop("name", "Unknown Player"), entry.score]
+			label.visible = true
+			label_container.add_child(label)
 
-	if label_container.get_child_count() == 0:
-		label_template.text = "Looks like nobody's here."
-	else:
-		label_template.queue_free()
-		
+		if label_container.get_child_count() == 0:
+			label_template.text = "Looks like nobody's here."
+		else:
+			label_template.queue_free()
 
 func _process(delta):
 	if not first_place_label:

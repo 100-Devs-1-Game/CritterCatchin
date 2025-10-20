@@ -65,6 +65,12 @@ func _ready() -> void:
 	_build_from_manager()
 	_connect_updates()
 
+	if _am.has_signal("achievements_loaded"):
+		_am.achievements_loaded.connect(_on_achievements_loaded)
+
+	_on_achievements_loaded()
+
+
 func _setup() -> void:
 	pass
 
@@ -177,11 +183,11 @@ func _connect_updates() -> void:
 
 	_connected = true
 
-func _on_achievement_unlocked(data: AchievementData) -> void:
-	if data == null:
+func _on_achievement_unlocked(id: StringName, data: AchievementData) -> void:
+	if id == "" or data == null:
 		return
-	if _cards_by_id.has(data.id):
-		var node = _cards_by_id[data.id]
+	if _cards_by_id.has(str(id)):
+		var node = _cards_by_id[str(id)]
 		var card = node as AchievementCard
 		if card != null:
 			card.set_locked_state(false)
@@ -194,6 +200,12 @@ func _on_achievement_progress(data: AchievementData, current: int, required: int
 		var card = node as AchievementCard
 		if card != null:
 			card.set_progress(current, required)
+
+func _on_achievements_loaded() -> void:
+	for key in _cards_by_id.keys():
+		var card = _cards_by_id[key] as AchievementCard
+		if card != null:
+			card.refresh_visual_state()
 
 func rebuild() -> void:
 	_build_from_manager()

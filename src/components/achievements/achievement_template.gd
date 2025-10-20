@@ -10,9 +10,6 @@ class_name AchievementCard
 
 var data: AchievementData = null
 
-func _ready() -> void:
-	icon_tex.size = icon_size
-
 func setup_from_data(p_data: AchievementData) -> void:
 	data = p_data
 
@@ -27,15 +24,24 @@ func setup_from_data(p_data: AchievementData) -> void:
 		progress.visible = true
 		progress.min_value = 0
 		progress.max_value = float(data.required_amount)
-		progress.value = float(data.current_amount)
+		progress.value = float(clamp(data.current_amount, 0, data.required_amount))
 	else:
-		progress.value = progress.max_value
+		progress.visible = false
 
+	if data.progressive:
+		set_progress(data.current_amount, data.required_amount)
+
+	refresh_visual_state()
+
+func refresh_visual_state() -> void:
+	if data == null:
+		return
 	set_locked_state(not data.unlocked)
 
 func set_progress(current: int, required: int) -> void:
 	if required <= 0:
 		progress.visible = false
+		return
 	else:
 		progress.visible = true
 		if current < 0:
@@ -54,10 +60,12 @@ func set_progress(current: int, required: int) -> void:
 func set_locked_state(locked: bool) -> void:
 	if locked:
 		modulate = Color(0.75, 0.75, 0.75, 1.0)
-		icon_tex.self_modulate = Color(0, 0, 0, 1)
+		if icon_tex != null:
+			icon_tex.self_modulate = Color(0, 0, 0, 1)
 	else:
 		modulate = Color(1, 1, 1, 1)
-		icon_tex.self_modulate = Color(1, 1, 1, 1)
+		if icon_tex != null:
+			icon_tex.self_modulate = Color(1, 1, 1, 1)
 
 func _format_title_with_progress(base_title: String, is_progressive: bool, current: int, required: int) -> String:
 	if is_progressive and required > 0:

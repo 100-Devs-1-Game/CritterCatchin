@@ -6,6 +6,7 @@ var flashing_enabled: bool = true
 var animated_ui: bool = true
 var custom_cursor: bool = true
 var notified: bool = false
+var st_notified: bool = false
 var player_username: String = ""
 
 var volumes: Dictionary = {
@@ -112,6 +113,7 @@ func _save() -> void:
 	c.set_value(SEC_VIDEO, "fullscreen", fullscreen)
 	c.set_value(SEC_USER, "username", player_username)
 	c.set_value(SEC_STATES, "notified", notified)
+	c.set_value(SEC_STATES, "st_notified", st_notified)
 	c.set_value(SEC_STATES, "flashing", flashing_enabled)
 	c.set_value(SEC_STATES, "animated", animated_ui)
 	c.set_value(SEC_STATES, "cursor", custom_cursor)
@@ -131,6 +133,7 @@ func _load() -> void:
 
 	fullscreen = bool(c.get_value(SEC_VIDEO, "fullscreen", fullscreen))
 	notified = bool(c.get_value(SEC_STATES, "notified", notified))
+	st_notified = bool(c.get_value(SEC_STATES, "st_notified", st_notified))
 	player_username = str(c.get_value(SEC_USER, "username", player_username))
 	flashing_enabled = bool(c.get_value(SEC_STATES, "flashing", flashing_enabled))
 	animated_ui = bool(c.get_value(SEC_STATES, "animated", animated_ui))
