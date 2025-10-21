@@ -46,7 +46,7 @@ func unlock(id: String) -> void:
 	if data == null:
 		push_warning("Tried to unlock unknown achievement id='%s'" % id)
 		return
-	if _unlocked_ids.has(id):
+	if is_unlocked(id):
 		return
 	_unlocked_ids[id] = true
 	data.unlocked = true
@@ -129,10 +129,8 @@ func _load_definitions() -> void:
 func _apply_loaded_progress() -> void:
 	for id in _achievements_by_id.keys():
 		var data: AchievementData = _achievements_by_id[id]
-		data.unlocked = _unlocked_ids.get(id)
-		#print("Applied unlocked for ", id, "=", data.unlocked)
+		data.unlocked = _unlocked_ids.get(id, false)
 		data.current_amount = int(_progress_by_id.get(id, 0))
-
 
 func _load_progress() -> void:
 	_unlocked_ids.clear()
@@ -162,7 +160,7 @@ func _save_progress() -> void:
 		cfg = ConfigFile.new()
 
 	for id in _achievements_by_id.keys():
-		cfg.set_value(SAVE_SECTION, id, _unlocked_ids.has(id))
+		cfg.set_value(SAVE_SECTION, id, _unlocked_ids.get(id, false))
 
 	for id in _achievements_by_id.keys():
 		var data: AchievementData = _achievements_by_id[id]
@@ -173,7 +171,6 @@ func _save_progress() -> void:
 	err = cfg.save(SAVE_PATH)
 	if err != OK:
 		push_warning("Failed to save achievements at %s (code %d)" % [SAVE_PATH, err])
-
 
 func reset_all() -> void:
 	print("Achievements have been reset.")
