@@ -5,6 +5,7 @@ const MUSIC = preload("res://audio/music.tscn")
 func _ready() -> void:
 	var c = MUSIC.instantiate()
 	c.bus = "Music"
+	c.finished.connect(func(): c.play())
 	_send_to_root(c)
 
 ## Accepts either a string path to a sound or an AudioStream, creates and plays them globally
