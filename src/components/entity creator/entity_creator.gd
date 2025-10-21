@@ -13,6 +13,8 @@ var special_lilguy: Node2D = null
 var stage_entity_amount: int = 10
 @export var stage_speed_ramp: float = 0.5
 @export var stage_entity_ramp: int = 3
+@export var max_stage_speed_ramp: float = 5.0
+@export var max_stage_entity_ramp: int = 50
 @export var for_title: bool = false
 
 @export var world: Node2D
@@ -102,6 +104,10 @@ func start_level(level: int) -> void:
 	else:
 		count = stage_entity_amount + stage_entity_ramp * (level - 1)
 
+	if count >= max_stage_entity_ramp:
+		count = max_stage_entity_ramp
+		print("Max entities reached %s" % str(count))
+
 	for i in range(count):
 		_spawn_lilguy(level)
 	if !for_title:
@@ -129,7 +135,12 @@ func _spawn_lilguy(difficulty: int) -> void:
 
 	if difficulty > 10:
 		var ramp_amount = difficulty - 10
-		lilguy.speed += ramp_amount * stage_speed_ramp
+		var speed_increase = ramp_amount * stage_speed_ramp
+		if speed_increase > max_stage_speed_ramp:
+			#print("Max speed cap reached")
+			speed_increase = max_stage_speed_ramp
+		lilguy.speed += speed_increase
+
 
 func _spawn_special_lilguy(difficulty: int) -> void:
 	if !is_instance_valid(spawn_area_node):
@@ -159,7 +170,11 @@ func _spawn_special_lilguy(difficulty: int) -> void:
 
 	if difficulty > 10:
 		var ramp_amount = difficulty - 10
-		special_lilguy.speed += ramp_amount * stage_speed_ramp
+		var speed_increase = ramp_amount * stage_speed_ramp
+		if speed_increase > max_stage_speed_ramp:
+			#print("Max speed cap reached")
+			speed_increase = max_stage_speed_ramp
+		special_lilguy.speed += speed_increase
 
 ## Removes all bugs, then removes the special one after a short time
 func _clear_lilguys() -> void:

@@ -6,6 +6,7 @@
 [node name="lilguy" type="Node2D" node_paths=PackedStringArray("sprite")]
 z_index = 13
 script = ExtResource("1_imegh")
+bounce_angle_variance = 0.735
 sprite = NodePath("Sprite2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

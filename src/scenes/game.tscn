@@ -535,6 +535,8 @@ script = ExtResource("3_p57ef")
 spawn_area_node = NodePath("../Bounds")
 stage_speed_ramp = 0.8
 stage_entity_ramp = 2
+max_stage_speed_ramp = 130.0
+max_stage_entity_ramp = 560
 world = NodePath("../World")
 
 [node name="SpriteContainer" type="Node2D" parent="."]
