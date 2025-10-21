@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="AchievementData" load_steps=3 format=3 uid="uid://bgv74uis5aux5"]
 
-[ext_resource type="Script" uid="uid://cnopd6vm5u7xw" path="res://resources/resource scripts/stages_passed.gd" id="1_by70n"]
+[ext_resource type="Script" uid="uid://cnopd6vm5u7xw" path="res://resources/resource scripts/achievement_data.gd" id="1_by70n"]
 [ext_resource type="Texture2D" uid="uid://b2lsl8lcpr7lr" path="res://assets/bugs/002.png" id="1_ks8oc"]
 
 [resource]

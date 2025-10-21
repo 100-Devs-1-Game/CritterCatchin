@@ -38,7 +38,7 @@ func get_by_id(id: String) -> AchievementData:
 
 
 func is_unlocked(id: String) -> bool:
-	return _unlocked_ids.has(id)
+	return _unlocked_ids.get(id, false)
 
 
 func unlock(id: String) -> void:
@@ -63,6 +63,7 @@ func try_unlock_on_predicate(id: String, predicate: Callable) -> void:
 
 
 func try_unlock_threshold(id: String, current_value: int, required: int) -> void:
+	#print("Achievement ID: %s, Current progress: %s,  Required amount: %s " % [id, str(current_value), str(required)])
 	if is_unlocked(id):
 		return
 	if current_value >= required:
@@ -129,7 +130,7 @@ func _apply_loaded_progress() -> void:
 	for id in _achievements_by_id.keys():
 		var data: AchievementData = _achievements_by_id[id]
 		data.unlocked = _unlocked_ids.get(id)
-		print("Applied unlocked for ", id, "=", data.unlocked)
+		#print("Applied unlocked for ", id, "=", data.unlocked)
 		data.current_amount = int(_progress_by_id.get(id, 0))
 
 
@@ -153,9 +154,6 @@ func _load_progress() -> void:
 
 
 func _save_progress() -> void:
-
-	print("Saving progress...")
-
 	var cfg := ConfigFile.new()
 	var err := cfg.load(SAVE_PATH)
 
@@ -216,6 +214,12 @@ func set_progress(id: String, value: int) -> void:
 	add_progress(id, value - int(_progress_by_id.get(id, 0)))
 
 
+func set_progress_max(id: String, value: int) -> void:
+	var prev = int(_progress_by_id.get(id, 0))
+	if value > prev:
+		set_progress(id, value)
+
+
 func get_progress(id: String) -> int:
 	return int(_progress_by_id.get(id, 0))
 
@@ -233,16 +237,16 @@ func _connect_listen_to(bus: Eventbus) -> void:
 
 func _on_bug_caught() -> void:
 	try_unlock_on_predicate("first_bug", func() -> bool: return true)
-	add_progress("ten_bugs", 1)
-	add_progress("thirty_bugs", 1)
-	add_progress("fifty_bugs", 1)
-	add_progress("hundred_bugs", 1)
-	add_progress("two_hundred_bugs", 1)
-	add_progress("five_hundred_bugs", 1)
+	var bug_achievements = ["ten_bugs", "thirty_bugs", "fifty_bugs", "hundred_bugs", "two_hundred_bugs", "five_hundred_bugs"]
+	for id in bug_achievements:
+		add_progress(id, 1)
 
 
-func _on_stage_started() -> void:
-	add_progress("more_stages", 1)
+func _on_stage_started(current_stage: int) -> void:
+	#print("Achievement manager recieved stage %s" % str(current_stage))
+	var stage_achievements = ["ten_stages", "twenty_stages", "fifty_stages", "hundred_stages", "five_hundred_stages"] 
+	for id in stage_achievements:
+		set_progress_max(id, current_stage)
 
 
 func _on_special_bug_caught() -> void:

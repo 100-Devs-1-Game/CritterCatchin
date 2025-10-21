@@ -23,6 +23,12 @@ func _ready() -> void:
 	Eventbus.menu_closed.connect(_toggle_visual)
 	if OS.has_feature("web"):
 		quit_button.visible = false
+	if !SettingsManager.check_talo_access_key():
+		$CanvasLayer/InfoCard/Info.modulate = Color.RED
+		$CanvasLayer/InfoCard/Info.text = "Talo Services are unavailable, Reason: No Access Key."
+		$CanvasLayer/InfoCard/UsernameEntry.visible = false
+		$CanvasLayer/InfoCard/ChangeUser.visible = false
+		$CanvasLayer/Outline/MenuPanel/VBoxContainer/leaderboard.disabled = true
 
 ## Toggles the title UI when called
 func _toggle_visual() -> void:

@@ -5,6 +5,8 @@ class_name SocketTicketsAPI extends TaloAPI
 ##
 ## @tutorial: https://docs.trytalo.com/docs/godot/socket
 
+var _ignore_err: bool = true
+
 ## Create a new socket ticket.
 func create_ticket() -> String:
 	var res := await client.make_request(HTTPClient.METHOD_POST, "")
@@ -13,5 +15,6 @@ func create_ticket() -> String:
 		200:
 			return res.body.ticket
 		_:
-			push_error("Failed to get socket ticket")
+			if !_ignore_err:
+				push_error("Failed to get socket ticket")
 			return ""

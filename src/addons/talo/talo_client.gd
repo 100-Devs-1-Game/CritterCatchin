@@ -5,9 +5,14 @@ const TALO_CLIENT_VERSION = "0.36.1"
 
 var _base_url: String
 
+var cc_hide_errors: bool = true
+
 func _init(base_url: String):
 	_base_url = base_url
 	name = "Client"
+
+func get_cc_hide_errors() -> bool:
+	return cc_hide_errors
 
 func _get_method_name(method: HTTPClient.Method):
 	match method:
@@ -120,16 +125,17 @@ func _build_full_url(url: String) -> String:
 	]
 
 func handle_error(method: HTTPClient.Method, url: String, res: Dictionary) -> void:
-	if res.body != null:
-		if res.body.has("message"):
-			push_error("%s %s [%s]: %s" % [_get_method_name(method), url, res.status, res.body.message])
-			return
+	if !cc_hide_errors:
+		if res.body != null:
+			if res.body.has("message"):
+				push_error("%s %s [%s]: %s" % [_get_method_name(method), url, res.status, res.body.message])
+				return
 
-		if res.body.has("errors"):
-			push_error("%s %s [%s]: %s" % [_get_method_name(method), url, res.status, res.body.errors])
-			return
+			if res.body.has("errors"):
+				push_error("%s %s [%s]: %s" % [_get_method_name(method), url, res.status, res.body.errors])
+				return
 
-	push_error("%s %s [%s]: Unknown error" % [_get_method_name(method), url, res.status])
+		push_error("%s %s [%s]: Unknown error" % [_get_method_name(method), url, res.status])
 
 class TaloClientResponse:
 	var result: int

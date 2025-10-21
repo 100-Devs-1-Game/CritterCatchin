@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://63ryhkwq34l2"]
+[gd_scene load_steps=31 format=3 uid="uid://63ryhkwq34l2"]
 
 [ext_resource type="Script" uid="uid://b7rqbknafl3kt" path="res://scenes/title.gd" id="1_4ignj"]
 [ext_resource type="Shader" uid="uid://cjfj4qn2m22pd" path="res://shaders/falling_shader.gdshader" id="2_hiwto"]
@@ -71,6 +71,17 @@ border_color = Color(0, 0, 0, 1)
 corner_detail = 6
 expand_margin_left = 17.0
 expand_margin_right = 17.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_blk4q"]
+bg_color = Color(0.184927, 0.106214, 0.0154853, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_detail = 6
+expand_margin_left = 36.0
+expand_margin_right = 36.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ygloa"]
 bg_color = Color(0.752694, 0.492277, 0.176421, 1)
@@ -318,14 +329,14 @@ text = "SETTINGS"
 
 [node name="leaderboard" type="Button" parent="CanvasLayer/Outline/MenuPanel/VBoxContainer"]
 layout_mode = 2
-theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
+theme_override_colors/font_disabled_color = Color(0.215902, 0.215902, 0.215902, 1)
 theme_override_colors/font_hover_color = Color(0.519636, 0.484062, 0.328357, 1)
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 7
 theme_override_fonts/font = ExtResource("3_p6dhs")
 theme_override_font_sizes/font_size = 34
 theme_override_styles/focus = SubResource("StyleBoxEmpty_pvspv")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_pvspv")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_blk4q")
 theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_pvspv")
 theme_override_styles/hover = SubResource("StyleBoxFlat_ygloa")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_pvspv")

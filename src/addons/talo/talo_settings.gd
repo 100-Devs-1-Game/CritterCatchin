@@ -109,7 +109,7 @@ func _init() -> void:
 		_config_file.load(SETTINGS_PATH)
 
 		if access_key.is_empty() and is_debug_build():
-			print_rich("[color=yellow]Warning: Talo access_key in settings.cfg is empty[/color]")
+			print_rich("[color=purple]Warning: Talo access_key in settings.cfg is empty[/color]")
 
 func is_debug_build() -> bool:
 	if OS.has_feature(LIVE_FEATURE_TAG):

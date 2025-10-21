@@ -71,12 +71,12 @@ func _start_level():
 	if $Explain.visible == true:
 		$Explain.visible = false
 	world.show_net()
+	Eventbus.level_started.emit(current_stage)
+	Eventbus.stage_begun.emit(current_stage) #was too lazy to merge level_started and the one for ach manager, sorry 😅
 	current_stage += 1
 	game_running = true
 	_timer = total_time
 	_update_timer_label()
-	Eventbus.level_started.emit(current_stage)
-	Eventbus.stage_begun.emit() #was too lazy to merge level_started and the one for ach manager, sorry 😅
 
 
 func _end_level():
@@ -158,27 +158,30 @@ func return_to_title() -> void:
 	$FinalLayer/Button.disabled = true
 	$FinalLayer/Skip.visible = true
 
-	var username = SettingsManager.get_username()
-	if not _skip_pressed and username != null and username.strip_edges() != "":
-		print_debug("User available, sending score to leaderboard")
-		await Talo.players.identify("guest", username)
+	if SettingsManager.check_talo_access_key():
+		var username = SettingsManager.get_username()
+		if not _skip_pressed and username != null and username.strip_edges() != "":
+			print_debug("User available, sending score to leaderboard")
+			await Talo.players.identify("guest", username)
+			if _skip_pressed:
+				Sceneloader.to_title()
+				return
+			await Talo.leaderboards.add_entry("stages-complete", current_stage, {"name": username})
+			if _skip_pressed:
+				Sceneloader.to_title()
+				return
+			print("Score submitted to the leaderboard, Current stage - ", str(current_stage))
+
 		if _skip_pressed:
 			Sceneloader.to_title()
 			return
-		await Talo.leaderboards.add_entry("stages-complete", current_stage, {"name": username})
+
+		await get_tree().create_timer(1.0).timeout
 		if _skip_pressed:
 			Sceneloader.to_title()
 			return
-		print("Score submitted to the leaderboard, Current stage - ", str(current_stage))
-
-	if _skip_pressed:
-		Sceneloader.to_title()
-		return
-
-	await get_tree().create_timer(1.0).timeout
-	if _skip_pressed:
-		Sceneloader.to_title()
-		return
+	else:
+		push_warning("Cannot access Talo Leaderboard Services, skipping.")
 
 	Sceneloader.to_title()
 

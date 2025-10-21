@@ -114,10 +114,10 @@ anchor_bottom = 0.5
 offset_left = -245.5
 offset_top = -189.5
 offset_right = 245.5
-offset_bottom = 288.5
+offset_bottom = 211.5
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 28
+theme_override_constants/separation = 13
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Credits/MenuPanel2/MenuPanel/VBoxContainer"]
 layout_mode = 2
@@ -130,7 +130,7 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_outline_size = 17
 theme_override_fonts/font = ExtResource("3_4u5wf")
 theme_override_font_sizes/font_size = 63
-text = "Skin"
+text = "Art & Game Design"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -141,18 +141,7 @@ theme_override_colors/font_color = Color(0.521569, 0.482353, 0.329412, 1)
 theme_override_constants/shadow_outline_size = 17
 theme_override_fonts/font = ExtResource("3_4u5wf")
 theme_override_font_sizes/font_size = 39
-text = "Art"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Skin3" type="Label" parent="Credits/MenuPanel2/MenuPanel/VBoxContainer/VBoxContainer"]
-custom_minimum_size = Vector2(491.01, 27.795)
-layout_mode = 2
-theme_override_colors/font_color = Color(0.521569, 0.482353, 0.329412, 1)
-theme_override_constants/shadow_outline_size = 17
-theme_override_fonts/font = ExtResource("3_4u5wf")
-theme_override_font_sizes/font_size = 39
-text = "Game Design"
+text = "Skin"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -167,7 +156,7 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_outline_size = 17
 theme_override_fonts/font = ExtResource("3_4u5wf")
 theme_override_font_sizes/font_size = 63
-text = "Plant"
+text = "Programming"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -178,7 +167,7 @@ theme_override_colors/font_color = Color(0.521569, 0.482353, 0.329412, 1)
 theme_override_constants/shadow_outline_size = 17
 theme_override_fonts/font = ExtResource("3_4u5wf")
 theme_override_font_sizes/font_size = 39
-text = "Programming"
+text = "Plant"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -193,7 +182,7 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_outline_size = 17
 theme_override_fonts/font = ExtResource("3_4u5wf")
 theme_override_font_sizes/font_size = 63
-text = "Tomto"
+text = "MUSIC"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -204,12 +193,42 @@ theme_override_colors/font_color = Color(0.521569, 0.482353, 0.329412, 1)
 theme_override_constants/shadow_outline_size = 17
 theme_override_fonts/font = ExtResource("3_4u5wf")
 theme_override_font_sizes/font_size = 39
-text = "Music"
+text = "Tomto"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="quit" type="Button" parent="Credits/MenuPanel2/MenuPanel/VBoxContainer"]
+[node name="VBoxContainer4" type="VBoxContainer" parent="Credits/MenuPanel2/MenuPanel/VBoxContainer"]
 layout_mode = 2
+theme_override_constants/separation = 1
+
+[node name="Additonal" type="Label" parent="Credits/MenuPanel2/MenuPanel/VBoxContainer/VBoxContainer4"]
+custom_minimum_size = Vector2(491.01, 27.795)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 17
+theme_override_fonts/font = ExtResource("3_4u5wf")
+theme_override_font_sizes/font_size = 31
+text = "Outsourced assets"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Tomto2" type="Label" parent="Credits/MenuPanel2/MenuPanel/VBoxContainer/VBoxContainer4"]
+custom_minimum_size = Vector2(491.01, 27.795)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.521569, 0.482353, 0.329412, 1)
+theme_override_constants/shadow_outline_size = 17
+theme_override_fonts/font = ExtResource("3_4u5wf")
+theme_override_font_sizes/font_size = 27
+text = "Universfield: Achievement SFX"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="quit" type="Button" parent="Credits/MenuPanel2/MenuPanel"]
+layout_mode = 2
+offset_left = 371.0
+offset_top = 595.749
+offset_right = 703.0
+offset_bottom = 634.749
 theme_override_colors/font_hover_color = Color(0.519636, 0.484062, 0.328357, 1)
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 7
@@ -240,7 +259,7 @@ text = "CREDITS"
 horizontal_alignment = 1
 
 [node name="AudioManagerCaller" parent="." node_paths=PackedStringArray("sound_buttons") instance=ExtResource("5_6cp3r")]
-sound_buttons = [NodePath("../Credits/MenuPanel2/MenuPanel/VBoxContainer/quit")]
+sound_buttons = [NodePath("../Credits/MenuPanel2/MenuPanel/quit")]
 
 [connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]
-[connection signal="pressed" from="Credits/MenuPanel2/MenuPanel/VBoxContainer/quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="Credits/MenuPanel2/MenuPanel/quit" to="." method="_on_quit_pressed"]
