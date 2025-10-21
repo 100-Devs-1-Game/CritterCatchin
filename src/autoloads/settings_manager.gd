@@ -10,9 +10,9 @@ var st_notified: bool = false
 var player_username: String = ""
 
 var volumes: Dictionary = {
-	"Master": 1.0,
-	"SFX": 1.0,
-	"Music": 1.0,
+	"Master": 0.5,
+	"SFX": 0.5,
+	"Music": 0.5,
 }
 
 const CFG: String = "user://settings.cfg"
@@ -185,3 +185,12 @@ func pause_game(pause: bool) -> void:
 ## Returns if the game/tree is paused
 func is_paused() -> bool:
 	return game_paused
+
+func check_talo_access_key() -> bool:
+	var cfg = ConfigFile.new()
+	var err = cfg.load("res://addons/talo/settings.cfg")
+	if err != OK:
+		push_warning("Failed to connect to Talo service. MISSING KEY")
+		return false
+	var key = str(cfg.get_value("", "access_key", "")).strip_edges()
+	return key != ""

@@ -212,7 +212,7 @@ text = "Master Volume"
 [node name="Master" type="HSlider" parent="CanvasLayer/MenuPanel6/MenuPanel5/Panel2/SettingVBox2/MasterVolume"]
 layout_mode = 2
 theme = ExtResource("2_rdrrm")
-value = 100.0
+value = 50.0
 
 [node name="SFXVolume" type="VBoxContainer" parent="CanvasLayer/MenuPanel6/MenuPanel5/Panel2/SettingVBox2"]
 layout_mode = 2
@@ -227,7 +227,7 @@ text = "SFX Volume"
 [node name="SFX" type="HSlider" parent="CanvasLayer/MenuPanel6/MenuPanel5/Panel2/SettingVBox2/SFXVolume"]
 layout_mode = 2
 theme = ExtResource("2_rdrrm")
-value = 100.0
+value = 50.0
 
 [node name="MusicVolume" type="VBoxContainer" parent="CanvasLayer/MenuPanel6/MenuPanel5/Panel2/SettingVBox2"]
 layout_mode = 2
@@ -242,7 +242,7 @@ text = "Music Volume"
 [node name="Music" type="HSlider" parent="CanvasLayer/MenuPanel6/MenuPanel5/Panel2/SettingVBox2/MusicVolume"]
 layout_mode = 2
 theme = ExtResource("2_rdrrm")
-value = 100.0
+value = 50.0
 
 [node name="Close" type="Button" parent="CanvasLayer"]
 anchors_preset = 7
