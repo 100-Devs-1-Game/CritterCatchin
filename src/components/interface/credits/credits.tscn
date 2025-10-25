@@ -193,7 +193,7 @@ theme_override_colors/font_color = Color(0.521569, 0.482353, 0.329412, 1)
 theme_override_constants/shadow_outline_size = 17
 theme_override_fonts/font = ExtResource("3_4u5wf")
 theme_override_font_sizes/font_size = 39
-text = "Tomto"
+text = "Toxare"
 horizontal_alignment = 1
 vertical_alignment = 1
 
